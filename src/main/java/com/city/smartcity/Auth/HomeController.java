@@ -20,19 +20,20 @@ public class HomeController {
         if(model.getAttribute("user")==null && getPrincipal()!=null){
             Optional<User> user = userRepository.findById(getPrincipal().getUsername());
             if (user.isPresent()){
-                UserRecord userRecord = new UserRecord(user.get().getNom() +" "+ user.get().getPrenom(),
+                user.get().setPassword("");
+                UserRecord userRecord = new UserRecord(
+                        user.get().getNom() +" "+ user.get().getPrenom(),
                         user.get().getEmail(),
                         user.get().getRole().substring(5));
                 model.addAttribute("user", userRecord);
             }
-
         }
         return "index";
     }
     @GetMapping("login")
     public String login(){
         if( getPrincipal() !=null)
-            return "index";
+            return "redirect:/";
         return "auth/login";
     }
 //    public String role(){

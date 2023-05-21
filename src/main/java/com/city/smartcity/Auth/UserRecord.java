@@ -7,5 +7,5 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class UserRecord {
-    String username;String email; String role;
+    String username; String email; String role;
 }

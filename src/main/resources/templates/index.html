@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Page d'accueil</title>
+</head>
+<body>
+    <div th:if="${user != null}">
+        <h1 th:text="${'Bienvenue sur la page daccueil '+user.username + '/' + user.role}"></h1>
+        <form th:action="@{/logout}"  method="post">
+            <button type="submit" >Sign Out</button>
+        </form>
+    </div>
+    <div th:else>
+        <h1>Bienvenue sur la page d'accueil  </h1>
+        <a th:href="@{/login}" >login</a>
+    </div>
+</body>
+</html>
