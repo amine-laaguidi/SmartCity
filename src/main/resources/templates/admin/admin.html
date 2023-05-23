@@ -4,7 +4,9 @@
     <title>Admin page</title>
 </head>
 <body>
-    <h1>Salut admin</h1><br>
+    <h1>Salut admin</h1>
+    <a th:href="@{/}">Acceuil </a>
+    <a href="#">> Admin</a>
     <form th:action="@{/logout}"  method="post">
         <button type="submit" >Sign Out</button>
     </form>

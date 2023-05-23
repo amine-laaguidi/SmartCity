@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tourisme page</title>
+</head>
+<body>
+    <h1>Salut Touriste</h1>
+    <a th:href="@{/}">Acceuil </a>
+    <a href="#">> Tourisme</a>
+    <ul>
+        <li th:each="tourismeCat:${tourismeCats}">
+            <a
+                    th:text="${tourismeCat.titleTC}"
+                    th:href="@{'/tourisme/' + ${tourismeCat.titleTC}}"
+            ></a>
+        </li>
+    </ul>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" >Sign Out</button>
+    </form>
+</body>
+</html>

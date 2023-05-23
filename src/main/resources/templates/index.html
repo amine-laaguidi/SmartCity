@@ -6,6 +6,10 @@
 <body>
     <div th:if="${user != null}">
         <h1 th:text="${'Bienvenue sur la page daccueil '+user.username + '/' + user.role}"></h1>
+        <h2 th:if="${user.role == 'ADMIN'}" ><a th:href="@{/admin}">admin</a></h2>
+        <h2 th:if="${user.role == 'TOURISTE'}" ><a th:href="@{/tourisme}">Espace tourisme</a></h2>
+        <h2 th:if="${user.role == 'ETUDIANT'}" ><a th:href="@{/etudiant}">Espace etudiant</a></h2>
+        <h2 th:if="${user.role == 'AAFAIRE'}" ><a th:href="@{/affaire}">Espace affaire</a></h2>
         <form th:action="@{/logout}"  method="post">
             <button type="submit" >Sign Out</button>
         </form>
