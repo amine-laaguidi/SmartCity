@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Tourisme page</title>
-
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 </head>
 <body>
 <h1 th:text="${'Bienvenue sur la page daccueil '+user.username + '/' + user.role}"></h1>
@@ -22,7 +22,7 @@
                     <a  th:text="${tourismeCat.titleTC}" th:href="@{'/tourisme/' + ${tourismeCat.titleTC}}"></a>
                 </td>
                 <td>
-                    <img th:src="@{/images/{imageName}(imageName=${tourismeCat.imgTC})}">
+                    <img class="image" th:src="@{/images/{imageName}(imageName=${tourismeCat.imgTC})}">
                 </td>
             </tr>
         </tbody>
