@@ -9,4 +9,5 @@ public interface TourismeService {
     Page<Tourisme> findTourismesByTourismeCatIdTCAndTitreTContaining(Long idTC,String titleTC, Pageable pageable) throws Exception;
     Page<Tourisme> findAll(Pageable pageable) throws Exception;
     List<Tourisme> findAll() throws Exception;
+
 }

@@ -2,19 +2,33 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Tourisme page</title>
+
 </head>
 <body>
+<h1 th:text="${'Bienvenue sur la page daccueil '+user.username + '/' + user.role}"></h1>
     <h1>Salut Touriste</h1>
     <a th:href="@{/}">Acceuil </a>
     <a href="#">> Tourisme</a>
-    <ul>
-        <li th:each="tourismeCat:${tourismeCats}">
-            <a
-                    th:text="${tourismeCat.titleTC}"
-                    th:href="@{'/tourisme/' + ${tourismeCat.titleTC}}"
-            ></a>
-        </li>
-    </ul>
+    <table th:border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="tourismeCat:${tourismeCats}" >
+                <td>
+                    <a  th:text="${tourismeCat.titleTC}" th:href="@{'/tourisme/' + ${tourismeCat.titleTC}}"></a>
+                </td>
+                <td>
+                    <img th:src="@{/images/{imageName}(imageName=${tourismeCat.imgTC})}">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <img th:src="@{/images/{imageName}(imageName='TOURISTE_bg1.jpg')}" />
     <form th:action="@{/logout}" method="post">
         <button type="submit" >Sign Out</button>
     </form>

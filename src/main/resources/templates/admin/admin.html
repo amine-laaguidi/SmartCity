@@ -6,9 +6,11 @@
 <body>
     <h1>Salut admin</h1>
     <a th:href="@{/}">Acceuil </a>
-    <a href="#">> Admin</a>
+    <a href="#">> Admin</a><br>
+    <a th:href="@{/admin/tourisme}">-Tourisme</a>
     <form th:action="@{/logout}"  method="post">
         <button type="submit" >Sign Out</button>
-    </form>
+    </form><br><br>
+
 </body>
 </html>

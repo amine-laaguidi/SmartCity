@@ -13,8 +13,7 @@ public class TourismeCat {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTC;
     private String titleTC;
-    @ElementCollection
-    private List<String> imgTC;
+    private String imgTC;
     @OneToMany(mappedBy = "tourismeCat",cascade =CascadeType.ALL)
     @JsonManagedReference
     private List<Tourisme> tourismeList;

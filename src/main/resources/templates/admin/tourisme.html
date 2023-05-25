@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin page</title>
+</head>
+<body>
+    <h1>Salut admin</h1>
+    <a th:href="@{/}">Acceuil </a>
+    <a href="#">> Admin</a><br>
+    <a th:href="@{/admin}">-Admin</a>
+    <form th:action="@{/logout}"  method="post">
+        <button type="submit" >Sign Out</button>
+    </form><br><br>
+    <h1>Tourisme Categorie :</h1>
+    <form  th:action="@{/admin/tourismeCat}" th:object="${tourismeCat}" method="post" enctype="multipart/form-data">
+        <div>
+            <label>Title:</label>
+            <input type="text" th:field="*{titleTC}" required/>
+        </div>
+        <div>
+            <label>Image:</label>
+            <input type="file" name="imageFile" required/>
+        </div>
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    </form><br>
+    <h1>Tourisme element :</h1>
+    <form>
+
+    </form><br>
+</body>
+</html>

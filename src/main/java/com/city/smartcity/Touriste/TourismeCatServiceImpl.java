@@ -24,4 +24,9 @@ public class TourismeCatServiceImpl implements TourismeCatService {
     public Optional<TourismeCat> findByTitle(String titleTC) throws Exception {
         return tourismeCatRepository.findTourismeCatByTitleTC(titleTC);
     }
+
+    @Override
+    public TourismeCat save(TourismeCat tourismeCat) throws Exception {
+        return tourismeCatRepository.save(tourismeCat);
+    }
 }
