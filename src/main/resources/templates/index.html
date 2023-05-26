@@ -14,7 +14,7 @@
             <button type="submit" >Sign Out</button>
         </form>
     </div>
-    <div th:else>
+    <div th:if="${user == null}" >
         <h1>Bienvenue sur la page d'accueil  </h1>
         <a th:href="@{/login}" >login</a>
     </div>

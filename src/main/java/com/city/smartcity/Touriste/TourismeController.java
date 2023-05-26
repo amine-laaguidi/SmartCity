@@ -48,7 +48,7 @@ public class TourismeController {
             e.printStackTrace();
         }
         model.addAttribute("tourismeCats",tourismeCats);
-        return "tourisme/tourisme";
+        return "tourisme/tourismev1";
     }
     @GetMapping("/{titleTC}")
     public String tourisme(Model model, @PathVariable("titleTC")String titleTC,@RequestParam(value = "page",defaultValue = "0") int page,@RequestParam(value = "search", defaultValue = "") String search) throws Exception {

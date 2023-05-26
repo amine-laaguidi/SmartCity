@@ -13,7 +13,7 @@ public class TourismeConfig {
 
     private final TourismeRepository tourismeRepository;
     private final TourismeCatRepository tourismeCatRepository;
-    @Bean
+//    @Bean
     CommandLineRunner initTourisme(){
         return args -> {
             TourismeCat hotel = tourismeCatRepository.save(

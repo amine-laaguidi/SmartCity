@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Tourisme page</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
 </head>
 <body>
 <h1 th:text="${'Bienvenue sur la page daccueil '+user.username + '/' + user.role}"></h1>
     <h1>Salut Touriste</h1>
-    <a th:href="@{/}">Acceuil </a>
-    <a href="#">> Tourisme</a>
+    <a th:href="@{/}">Acceuil</a>
+    <a href="#">Tourisme</a>
     <table th:border="1">
         <thead>
             <tr>
