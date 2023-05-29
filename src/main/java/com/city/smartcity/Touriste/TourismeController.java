@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -51,15 +52,32 @@ public class TourismeController {
         return "tourisme/tourismev1";
     }
     @GetMapping("/{titleTC}")
-    public String tourisme(Model model, @PathVariable("titleTC")String titleTC,@RequestParam(value = "page",defaultValue = "0") int page,@RequestParam(value = "search", defaultValue = "") String search) throws Exception {
+    public String tourismeItems(Model model, @PathVariable("titleTC")String titleTC,@RequestParam(value = "page",defaultValue = "0") int page,@RequestParam(value = "search", defaultValue = "") String search) throws Exception {
         Page<Tourisme> tourismes = null;
+        List<TourismeCat> tourismeCats =null;
         try{
             tourismes = tourismeService.findTourismesByTourismeCatIdTCAndTitreTContaining(tourismeCatService.findByTitle(titleTC).get().getIdTC(),search, PageRequest.of(page,10));
+            tourismeCats = tourismeCatService.findAll();
+        }catch (Exception e){
+            System.out.println("------------------------------tourismesCat error----------------------");
+            e.printStackTrace();
+        }
+        model.addAttribute("tourismeCats",tourismeCats);
+        model.addAttribute("tourismes",tourismes);
+        return "tourisme/tourismeItemsv1";
+    }
+    @GetMapping("/{titleTC}/{idT}")
+    public String tourismeItem(Model model, @PathVariable("titleTC")String titleTC,@PathVariable("idT")Long idT) throws Exception {
+        Tourisme tourisme = null;
+        List<TourismeCat> tourismeCats =null;
+        try{
+            tourisme = tourismeService.findTourismeByIdT(idT);
+            tourismeCats = tourismeCatService.findAll();
         }catch (Exception e){
             e.printStackTrace();
         }
-        model.addAttribute("tourismes",tourismes);
-        return "tourisme/tourismeItems";
+        model.addAttribute("tourismeCats",tourismeCats);
+        model.addAttribute("tourisme",tourisme);
+        return "tourisme/tourismeItem";
     }
-
 }

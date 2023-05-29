@@ -26,8 +26,32 @@
         </div>
     </form><br>
     <h1>Tourisme element :</h1>
-    <form>
-
+    <form  th:action="@{/admin/tourisme}" th:object="${tourisme}" method="post" enctype="multipart/form-data">
+        <div>
+            <label>Categorie:</label>
+            <select name="idTC" >
+                <option th:each="tourismeCat:${tourismeCats}" th:value="${tourismeCat.getIdTC()}" th:text="${tourismeCat.getTitleTC()}"></option>
+            </select>
+        </div>
+        <div>
+            <input type="text" th:field="*{titreT}" required/>
+        </div>
+        <div>
+            <label>Adresse:</label>
+            <input type="text" th:field="*{adresseT}" required/>
+        </div>
+        <div>
+            <label>Title:</label>
+            <textarea th:field="*{descriptionT}" rows="10" cols="50" required>
+            </textarea>
+        </div>
+        <div>
+            <label>Images:</label>
+            <input type="file" name="images" multiple th:attr="multiple='multiple'">
+        </div>
+        <div>
+            <button type="submit">Save</button>
+        </div>
     </form><br>
 </body>
 </html>

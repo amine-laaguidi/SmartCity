@@ -5,6 +5,7 @@ import jdk.jfr.Registered;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
@@ -13,7 +14,11 @@ public class Tourisme {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idT;
     private String titreT;
-    private String lieuT;
+    @Column(length = 2000)
+    private String descriptionT;
+    private String adresseT;
+    @ElementCollection
+    private List<String> imageUrls;
     @ManyToOne
     @JoinColumn(name = "idTC")
     @JsonBackReference
