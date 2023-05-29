@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TourismeService {
-    Page<Tourisme> findTourismesByTourismeCatIdTCAndTitreTContaining(Long idTC,String titleTC, Pageable pageable) throws Exception;
+    Page<Tourisme> search(TourismeCat tourismeCat,String search, Pageable pageable) throws Exception;
+    Page<Tourisme> findTourismesByCategorie(TourismeCat tourismeCat, Pageable pageable) throws Exception;
     Tourisme findTourismeByIdT(Long idT) throws Exception;
     Page<Tourisme> findAll(Pageable pageable) throws Exception;
     List<Tourisme> findAll() throws Exception;

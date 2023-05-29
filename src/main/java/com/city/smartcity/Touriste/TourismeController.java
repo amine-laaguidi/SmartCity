@@ -56,7 +56,7 @@ public class TourismeController {
         Page<Tourisme> tourismes = null;
         List<TourismeCat> tourismeCats =null;
         try{
-            tourismes = tourismeService.findTourismesByTourismeCatIdTCAndTitreTContaining(tourismeCatService.findByTitle(titleTC).get().getIdTC(),search, PageRequest.of(page,10));
+            tourismes = tourismeService.search(tourismeCatService.findByTitle(titleTC).get(),search, PageRequest.of(page,10));
             tourismeCats = tourismeCatService.findAll();
         }catch (Exception e){
             System.out.println("------------------------------tourismesCat error----------------------");
@@ -64,6 +64,7 @@ public class TourismeController {
         }
         model.addAttribute("tourismeCats",tourismeCats);
         model.addAttribute("tourismes",tourismes);
+        model.addAttribute("search",search);
         return "tourisme/tourismeItemsv1";
     }
     @GetMapping("/{titleTC}/{idT}")

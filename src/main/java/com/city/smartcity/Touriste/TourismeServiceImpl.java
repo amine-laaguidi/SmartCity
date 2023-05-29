@@ -13,8 +13,12 @@ import java.util.Optional;
 public class TourismeServiceImpl implements TourismeService {
     private final TourismeRepository tourismeRepository;
     @Override
-    public Page<Tourisme> findTourismesByTourismeCatIdTCAndTitreTContaining(Long idTC,String titleTC, Pageable pageable) throws Exception {
-        return tourismeRepository.findTourismesByTourismeCatIdTCAndTitreTContaining(idTC,titleTC,pageable);
+    public Page<Tourisme> search(TourismeCat tourismeCat, String search, Pageable pageable) throws Exception {
+        return tourismeRepository.findTourismesByTitreTContainingIgnoreCaseAndTourismeCat(search,tourismeCat,pageable);
+    }
+    @Override
+    public Page<Tourisme> findTourismesByCategorie(TourismeCat tourismeCat, Pageable pageable) throws Exception {
+        return tourismeRepository.findTourismesByTourismeCat(tourismeCat,pageable);
     }
     @Override
     public Tourisme findTourismeByIdT(Long idT) throws Exception {
@@ -28,7 +32,6 @@ public class TourismeServiceImpl implements TourismeService {
     public List<Tourisme> findAll() throws Exception {
         return tourismeRepository.findAll();
     }
-
     @Override
     public Tourisme save(Tourisme tourisme) throws Exception {
         return tourismeRepository.save(tourisme);
