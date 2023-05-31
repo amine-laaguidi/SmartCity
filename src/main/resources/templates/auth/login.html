@@ -5,10 +5,6 @@
     <title>Retnews &#8211; Best news, blog & magazine template</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="">
-    <!-- favicon.ico in the root directory -->
-    <link rel="apple-touch-icon" href="">
-
     <meta name="theme-color" content="#030303">
     <!-- google fonts -->
     <link
@@ -22,7 +18,7 @@
     <div class="h-100 d-flex align-items-center justify-content-center">
         <ul class="list-unstyled">
             <li>
-                <img src="images/placeholder/logo2.png" alt="Alternate Text" height="100" />
+                <img th:src="@{/images/placeholder/logo2.png}" alt="Alternate Text" height="100" />
             </li>
             <li>
 
@@ -54,7 +50,7 @@
                     </div>
                 </div>
                 <figure class="mb-0 mx-auto">
-                    <a href="/homepage-v1.html">
+                    <a th:href="@{/}">
                         <img src="images/placeholder/logo1.png" alt="" class="img-fluid logo">
                     </a>
                 </figure>
