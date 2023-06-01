@@ -48,8 +48,31 @@ public class TourismeController {
         }catch (Exception e){
             e.printStackTrace();
         }
+//        model.addAttribute("user",(UserRecord)session.getAttribute("user"));
         model.addAttribute("tourismeCats",tourismeCats);
         return "tourisme/tourismev1";
+    }
+    @GetMapping("/apropos")
+    public String apropos(Model model){
+        List<TourismeCat> tourismeCats =null;
+        try{
+            tourismeCats = tourismeCatService.findAll();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        model.addAttribute("tourismeCats",tourismeCats);
+        return "apropos";
+    }
+    @GetMapping("/contact")
+    public String contact(Model model){
+        List<TourismeCat> tourismeCats =null;
+        try{
+            tourismeCats = tourismeCatService.findAll();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        model.addAttribute("tourismeCats",tourismeCats);
+        return "contact";
     }
     @GetMapping("/{titleTC}")
     public String tourismeItems(Model model, @PathVariable("titleTC")String titleTC,@RequestParam(value = "page",defaultValue = "0") int page,@RequestParam(value = "search", defaultValue = "") String search) throws Exception {

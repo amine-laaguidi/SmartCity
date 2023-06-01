@@ -17,5 +17,4 @@ public class TourismeCat {
     @OneToMany(mappedBy = "tourismeCat",cascade =CascadeType.ALL)
     @JsonManagedReference
     private List<Tourisme> tourismeList;
-
 }

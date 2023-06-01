@@ -1,5 +1,7 @@
 package com.city.smartcity.Auth;
 
+import com.city.smartcity.Touriste.TourismeCatService;
+import com.city.smartcity.Touriste.TourismeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,14 +19,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class HomeController {
     private final UserService userService;
+    private final TourismeCatService tourismeCatService;
     @GetMapping
     public ModelAndView index(HttpSession session) throws Exception {
         ModelAndView modelAndView = new ModelAndView("index");
-        if(modelAndView.getModel().get("user")==null && userService.getPrincipal()!=null){
+        if(session.getAttribute("user")==null && userService.getPrincipal()!=null){
             UserRecord userRecord = userService.getPrincipalRecord();
             session.setAttribute("user", userRecord);
             modelAndView.addObject("user", userRecord);
         }
+        UserRecord userRecord = (UserRecord)session.getAttribute("user");
+        if(userRecord!=null && userRecord.getRole().equals("TOURISTE"))
+            modelAndView.addObject("tourismeCats",tourismeCatService.findAll());
         return modelAndView;
     }
     @GetMapping("login")
@@ -32,6 +38,30 @@ public class HomeController {
         if( userService.getPrincipal() !=null)
             return "redirect:/";
         return "auth/login";
+    }
+    @GetMapping("register")
+    public String register(){
+        if( userService.getPrincipal() !=null)
+            return "redirect:/";
+        return "auth/register";
+    }
+    @GetMapping("apropos")
+    public String apropos(HttpSession session){
+        UserRecord user = (UserRecord) session.getAttribute("user");
+        if(user==null)
+            return "apropos";
+        if(user.getRole().equals("TOURISTE"))
+            return "redirect:/tourisme/apropos";
+        return "index";
+    }
+    @GetMapping("contact")
+    public String contact(HttpSession session){
+        UserRecord user = (UserRecord) session.getAttribute("user");
+        if(user==null)
+            return "contact";
+        if(user.getRole().equals("TOURISTE"))
+            return "redirect:/tourisme/contact";
+        return "index";
     }
 //    public String role(){
 //        getPrincipal().getAuthorities().stream().findFirst().get().getAuthority();

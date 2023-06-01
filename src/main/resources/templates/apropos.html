@@ -1,253 +1,53 @@
 <!DOCTYPE html>
 <html  lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-  <meta charset="utf-8">
-  <title>Retnews &#8211; Best news, blog & magazine template</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#17A90C">
-  <!-- google fonts -->
-  <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,500;0,700;1,300;1,500&family=Poppins:ital,wght@0,300;0,500;0,700;1,300;1,400&display=swap"
-          rel="stylesheet">
-  <link type="text/css" th:href="@{/css/styles.css}"  rel="stylesheet">
-</head>
+<div th:replace="~{/layouts/head :: head}"></div>
 <body>
-<!-- loading -->
-<div class="loading-container">
-  <div class="h-100 d-flex align-items-center justify-content-center">
-    <ul class="list-unstyled">
-      <li>
-        <img th:src="@{/images/placeholder/logo2.png}" alt="Alternate Text" height="100" />
-      </li>
-      <li>
-
-        <div class="spinner">
-          <div class="rect1"></div>
-          <div class="rect2"></div>
-          <div class="rect3"></div>
-          <div class="rect4"></div>
-          <div class="rect5"></div>
-
-        </div>
-
-      </li>
-      <li>
-        <p>Loading</p>
-      </li>
-    </ul>
-  </div>
-</div>
-<!-- End loading -->
-
-<header class="bg-light">
-  <!-- Navbar menu  -->
-  <div class="navigation-wrap navigation-shadow bg-white">
-    <nav class="navbar navbar-hover navbar-expand-lg navbar-soft">
-      <div class="container">
-        <div class="offcanvas-header">
-          <div data-toggle="modal" data-target="#modal_aside_right" class="btn-md">
-            <span class="navbar-toggler-icon"></span>
-          </div>
-        </div>
-        <figure class="mb-0 mx-auto">
-          <a th:href="@{/}">
-            <img th:src="@{/images/placeholder/logo1.png}" alt="" class="img-fluid logo">
-          </a>
-        </figure>
-        <div class="collapse navbar-collapse justify-content-between" id="main_nav99">
-          <ul class="navbar-nav ml-auto ">
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/}"> Acceuil </a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown"> Categories </a>
-              <ul class="dropdown-menu dropdown-menu-left" >
-                <li th:each="tourismeCat:${tourismeCats}" ><a class="dropdown-item" th:href="@{'/tourisme/' + ${tourismeCat.titleTC}}" th:text="${tourismeCat.getTitleTC()}" ></a></li>
-              </ul>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="#"> A propos </a></li>
-            <li class="nav-item"><a class="nav-link" href="/contact.html"> contact </a></li>
-            <li class="nav-item dropdown">
-              <a class="nav-link active" href="#" data-toggle="dropdown"><i class="fa fa-user"></i> Compte</a>
-              <ul class="dropdown-menu dropdown-menu-left">
-                <li><a class="dropdown-item" href="/about-us.html"> Profil </a>
-                </li>
-                <li><a class="dropdown-item" th:href="@{/logout}"> Déconnexion </a></li>
-
-              </ul>
-            </li>
-          </ul>
-        </div> <!-- navbar-collapse.// -->
-      </div>
-    </nav>
-  </div>
-  <!-- End Navbar menu  -->
-
-  <!-- Navbar sidebar menu  -->
-  <div id="modal_aside_right" class="modal fixed-left fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-aside" role="document">
-      <div class="modal-content">
-        <div class="modal-body">
-          <nav class="list-group list-group-flush">
-            <ul class="navbar-nav ">
-              <li class="nav-item">
-                <a class="nav-link" th:href="@{/}"> Acceuil </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown"> Categories </a>
-                <ul class="dropdown-menu dropdown-menu-left"  >
-                  <li th:each="tourismeCat:${tourismeCats}" ><a class="dropdown-item" th:href="@{'/tourisme/' + ${tourismeCat.titleTC}}" th:text="${tourismeCat.getTitleTC()}" ></a></li>
-                </ul>
-              </li>
-              <li class="nav-item"><a class="nav-link" href="#"> A propos </a></li>
-              <li class="nav-item"><a class="nav-link" href="/contact.html"> contact </a></li>
-              <li class="nav-item dropdown">
-                <a class="nav-link active" href="#" data-toggle="dropdown"><i class="fa fa-user"></i> Compte</a>
-                <ul class="dropdown-menu dropdown-menu-left">
-                  <li><a class="dropdown-item" href="/about-us.html"> Profil </a>
-                  </li>
-                  <li><a class="dropdown-item" th:href="@{/logout}"> Déconnexion </a></li>
-                </ul>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<div class="slider-container">
-  <div class="container-slider-image-full nopadd">
-
-    <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
-      <ol class="carousel-indicators d-none">
-        <li th:each="tourismeCat, index :${tourismeCats}" data-target="#carouselExampleIndicators" th:attr="data-slide-to=${index.count - 1}"  th:class="${index.count - 1 == 0} ? 'active' : ''"></li>
-      </ol>
-      <div class="carousel-inner">
-        <div th:each="tourismeCat, index :${tourismeCats}"   th:class="${index.count - 1 == 0} ? 'carousel-item active' : 'carousel-item'" >
-          <img th:if="${tourismeCat.imgTC.isEmpty()}" class="d-block w-100" src="images/placeholder/1920x960.jpg" alt="First slide">
-          <img th:if="${!tourismeCat.imgTC.isEmpty()}" class="d-block w-100" th:src="@{/images/{imageName}(imageName=${tourismeCat.imgTC})}" alt="First slide">
-          <div class="carousel-caption d-md-block text-center text-capitalize">
-
-            <h1 th:text="${tourismeCat.titleTC}" class="text-white animated fadeInUp nopadd" style="animation-delay:1s"></h1>
-            <!--                            <p class="text-white animated fadeInDown text-center" style="animation-delay:2s">-->
-            <!--                                Find your best tour and start the adventure at the lowest budget and best-->
-            <!--                                experiences. </p>-->
-            <div class="animated fadeInLeft d-none d-sm-block" style="animation-delay:2.6s">
-              <a  th:href="@{'/tourisme/' + ${tourismeCat.titleTC}}" class="btn btn-primary text-uppercase">Visiter</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-      <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span> -->
-      <i class="fa fa-2x fa-angle-left"></i>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-      <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span> -->
-      <i class="fa fa-2x fa-angle-right"></i>
-    </a>
-  </div>
-</div>
-
-</div>
+<div th:replace="~{/layouts/loading :: div}"></div>
+<div th:replace="~{/layouts/header :: header}"></div>
 <section>
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <!-- Breadcrumb -->
         <ul class="breadcrumbs bg-light mb-4">
           <li class="breadcrumbs__item">
             <a th:href="@{/}" class="breadcrumbs__url">
               <i class="fa fa-home"></i> Acceuil</a>
           </li>
           <li class="breadcrumbs__item">
-            <a href="#" class="breadcrumbs__url breadcrumbs__item--current">Tourisme</a>
+            <a href="#" class="breadcrumbs__url breadcrumbs__item--current">A propos</a>
           </li>
         </ul>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <aside class="wrapper__list__article ">
-          <h4 class="border_section">Category title</h4>
-          <!-- Post Article List -->
-
-        </aside>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="wrapper__section p-0">
-  <div class="wrapper__section__components">
-    <footer>
-      <!-- Footer bottom -->
-      <div class="wrapper__footer-bottom bg__footer-dark">
-        <div class="container ">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="border-top-1 bg__footer-bottom-section">
-                <ul class="list-inline link-column">
-                  <li class="list-inline-item">
-                    <a href="/contact-us.html">
-                      contact us
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#"> terms of use</a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      adchoice
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="/about-us.html">
-                      about us
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      newsletters
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      sitemap
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      magrenvi store
-                    </a>
-                  </li>
-                </ul>
-                <ul class="list-inline">
-                  <li class="list-inline-item">
-                                            <span>
-                                                Copyright © 2019 News and Magazine template based on Bootstrap 4 Theme by <a
-                                                    href="#">retenvi</a>
-                                            </span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+        <div class="wrap__about-us">
+          <h4><strong>Bienvenue sur le site web de Khouribga Smart City !</strong> </h4>
+          <p>
+            Notre plateforme a été spécialement conçue pour répondre aux besoins des nouveaux arrivants, des étudiants, des demandeurs d'emploi et des entrepreneurs souhaitant explorer les nombreuses opportunités offertes par la ville de Khouribga.
+          </p>
+          <br><h4><strong>Notre mission :</strong></h4>
+          <p>
+            Fournir toutes les informations essentielles sur Khouribga, que ce soit pour votre séjour touristique, vos études, vos affaires ou votre recherche d'emploi. Grâce à notre application web conviviale, vous pourrez accéder à une mine d'informations sur les lieux à visiter, les plans de site, les cartes routières, l'environnement commercial, les portails d'emploi et bien plus encore.
+          </p>
+          <h4><strong>Explorez Khouribga :</strong></h4>
+          <p>
+            Que vous soyez un étudiant à la recherche de matériel d'étude, un homme d'affaires cherchant à établir des contacts ou un touriste désireux d'explorer les attractions locales, vous trouverez ici tout ce dont vous avez besoin. Nous mettons également à votre disposition des informations sur les centres de coaching, les établissements universitaires, les entreprises et les opportunités d'emploi disponibles à Khouribga.
+          </p>
+          <h4><strong>Disponibilité 24/7 :</strong></h4>
+          <p>
+            Nous sommes fiers d'offrir un accès 24h/24 et 7j/7 à notre application, afin que vous puissiez obtenir les informations dont vous avez besoin à tout moment. Notre équipe travaille constamment pour mettre à jour les détails sur Khouribga et vous offrir une expérience utilisateur optimale.
+          </p>
+          <h4><strong>Découvrez Khouribga :</strong></h4>
+          <p>
+            Explorez notre site web et plongez dans l'histoire, la culture et les opportunités passionnantes que Khouribga a à offrir. Nous espérons que cette plateforme vous aidera à tirer le meilleur parti de votre expérience à Khouribga Smart City.
+          </p>
+          <h4><strong>Bienvenue à Khouribga :</strong> </h4>
+          <p>
+            Nous vous souhaitons la bienvenue à Khouribga, votre destination intelligente !
+          </p>
         </div>
       </div>
-    </footer>
+    </div>
   </div>
 </section>
+<div th:replace="~{/layouts/footer :: section}"></div>
 <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
-
 <script type="text/javascript" th:src="@{/js/index.bundle.js}"></script></body>
-
 </html>
