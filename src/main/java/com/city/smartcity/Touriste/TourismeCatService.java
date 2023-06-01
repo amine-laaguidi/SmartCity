@@ -7,6 +7,5 @@ public interface TourismeCatService {
     List<TourismeCat> findAll() throws Exception;
     Optional<TourismeCat> findById(Long idTC) throws Exception;
     Optional<TourismeCat> findByTitle(String titleTC) throws Exception;
-
     TourismeCat save(TourismeCat tourismeCat) throws Exception;
 }

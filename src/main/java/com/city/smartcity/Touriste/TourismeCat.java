@@ -1,14 +1,10 @@
 package com.city.smartcity.Touriste;
 
-
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.List;
-@Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Entity @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class TourismeCat {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTC;

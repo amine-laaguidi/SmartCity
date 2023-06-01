@@ -1,17 +1,11 @@
 package com.city.smartcity.Touriste;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jdk.jfr.Registered;
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.List;
-
-@Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Entity @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Tourisme {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idT;
     private String titreT;
     @Column(length = 2000)
@@ -23,5 +17,4 @@ public class Tourisme {
     @JoinColumn(name = "idTC")
     @JsonBackReference
     private TourismeCat tourismeCat;
-
 }
