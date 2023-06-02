@@ -1,12 +1,76 @@
 <!DOCTYPE html>
 <html  lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Etudiant page</title>
-</head>
+<div th:replace="~{/layouts/head :: head}"></div>
 <body>
-<h1>Salut Etudiant</h1><br>
-<form th:action="@{/logout}"  method="post">
-    <button type="submit" >Sign Out</button>
-</form>
-</body>
+<div th:replace="~{/layouts/loading :: div}"></div>
+<div th:replace="~{/layouts/header :: header}"></div>
+<div class="slider-container">
+    <div class="container-slider-image-full nopadd">
+        <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+            <ol class="carousel-indicators d-none">
+                <li th:each="campusCat, index :${campusCats}" data-target="#carouselExampleIndicators" th:attr="data-slide-to=${index.count - 1}"  th:class="${index.count - 1 == 0} ? 'active' : ''"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div th:each="campusCat, index :${campusCats}"   th:class="${index.count - 1 == 0} ? 'carousel-item active' : 'carousel-item'" >
+                    <img th:if="${campusCat.imgCmpCat.isEmpty()}" class="d-block w-100" src="images/placeholder/1920x960.jpg" alt="First slide">
+                    <img th:if="${!campusCat.imgCmpCat.isEmpty()}" class="d-block w-100" th:src="@{/images/{imageName}(imageName=${campusCat.imgCmpCat})}" alt="First slide">
+                    <div class="carousel-caption d-md-block text-center text-capitalize">
+                        <h1 th:text="${campusCat.titleCmpCat}" class="text-white animated fadeInUp nopadd" style="animation-delay:1s"></h1>
+                        <!--                            <p class="text-white animated fadeInDown text-center" style="animation-delay:2s">-->
+                        <!--                                Find your best tour and start the adventure at the lowest budget and best-->
+                        <!--                                experiences. </p>-->
+                        <div class="animated fadeInLeft d-none d-sm-block" style="animation-delay:2.6s">
+                            <a  th:href="@{'/etudiant/' + ${campusCat.titleCmpCat}}" class="btn btn-primary text-uppercase">Visiter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span> -->
+            <i class="fa fa-2x fa-angle-left"></i>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span> -->
+            <i class="fa fa-2x fa-angle-right"></i>
+        </a>
+    </div>
+</div>
+</div>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Breadcrumb -->
+                <ul class="breadcrumbs bg-light mb-4">
+                    <li class="breadcrumbs__item">
+                        <a th:href="@{/}" class="breadcrumbs__url">
+                            <i class="fa fa-home"></i> Acceuil</a>
+                    </li>
+                    <li class="breadcrumbs__item">
+                        <a href="#" class="breadcrumbs__url breadcrumbs__item--current" th:if="${session.user.getRole().equals('TOURISTE')}"  >Tourisme</a>
+                        <a href="#" class="breadcrumbs__url breadcrumbs__item--current" th:if="${session.user.getRole().equals('ETUDIANT')}"  >Etudiant</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <aside class="wrapper__list__article ">
+                    <h4 class="border_section">Category title</h4>
+                    <!-- Post Article List -->
+
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+<div th:replace="~{/layouts/footer :: section}"></div>
+<a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+<script type="text/javascript" th:src="@{/js/index.bundle.js}"></script></body>
+
 </html>

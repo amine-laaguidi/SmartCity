@@ -1,6 +1,10 @@
 package com.city.smartcity.Admin;
 
 import com.city.smartcity.Auth.UserService;
+import com.city.smartcity.Etudiant.Campus;
+import com.city.smartcity.Etudiant.CampusCat;
+import com.city.smartcity.Etudiant.CampusCatService;
+import com.city.smartcity.Etudiant.CampusService;
 import com.city.smartcity.Touriste.Tourisme;
 import com.city.smartcity.Touriste.TourismeCat;
 import com.city.smartcity.Touriste.TourismeCatService;
@@ -21,8 +25,9 @@ import java.util.List;
 public class AdminController {
     private final ImageService imageService;
     private final TourismeCatService tourismeCatService;
-
     private final TourismeService tourismeService;
+    private final CampusCatService campusCatService;
+    private final CampusService campusService;
     @GetMapping()
     public String admin(){
         return "admin/admin";
@@ -33,6 +38,13 @@ public class AdminController {
         model.addAttribute("tourisme", new Tourisme());
         model.addAttribute("tourismeCats",tourismeCatService.findAll());
         return "admin/tourisme";
+    }
+    @GetMapping("/etudiant")
+    public String etudiant(Model model) throws Exception {
+        model.addAttribute("campusCat", new CampusCat());
+        model.addAttribute("campus", new Campus());
+        model.addAttribute("campusCats",campusCatService.findAll());
+        return "admin/etudiant";
     }
     @PostMapping("/tourismeCat")
     public String addTourismeCat(@ModelAttribute("tourismeCat") TourismeCat tourismeCat,
@@ -46,6 +58,19 @@ public class AdminController {
             }
         }
         return "redirect:/admin/tourisme";
+    }
+    @PostMapping("/campusCat")
+    public String addCampusCat(@ModelAttribute("campusCat") CampusCat campusCat,
+                                 @RequestParam("imageFile") MultipartFile imageFile)  {
+        if (!imageFile.isEmpty()) {
+            try {
+                campusCat.setImgCmpCat(imageService.saveImage(imageFile,"ETUDIANT"));
+                campusCatService.save(campusCat);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "redirect:/admin/etudiant";
     }
     @PostMapping("/tourisme")
     public String addTourisme(@ModelAttribute("tourisme") Tourisme tourisme,
@@ -64,5 +89,23 @@ public class AdminController {
             }
         }
         return "redirect:/admin/tourisme";
+    }
+    @PostMapping("/campus")
+    public String addCampus(@ModelAttribute("campus") Campus campus,
+                              @RequestParam("images") List<MultipartFile> images,
+                              @RequestParam("idTC") Long idTC)  {
+        if (!images.isEmpty()) {
+            try {
+                campus.setCampusCat(campusCatService.findById(idTC).get());
+                campus.setImageUrls(new ArrayList<String>());
+                for (MultipartFile image : images) {
+                    campus.getImageUrls().add(imageService.saveImage(image,"ETUDIANT"));
+                }
+                campusService.save(campus);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "redirect:/admin/etudiant";
     }
 }

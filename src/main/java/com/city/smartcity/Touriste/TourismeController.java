@@ -1,27 +1,16 @@
 package com.city.smartcity.Touriste;
 
-import com.city.smartcity.Auth.UserRecord;
 import com.city.smartcity.Auth.UserService;
 import com.city.smartcity.image.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/tourisme")
@@ -47,9 +36,7 @@ public class TourismeController {
             tourismeCats = tourismeCatService.findAll();
         }catch (Exception e){
             e.printStackTrace();
-        }
-//        model.addAttribute("user",(UserRecord)session.getAttribute("user"));
-        model.addAttribute("tourismeCats",tourismeCats);
+        } model.addAttribute("tourismeCats",tourismeCats);
         return "tourisme/tourismev1";
     }
     @GetMapping("/apropos")

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Etudiant</title>
+</head>
+    <body>
+    <h1>Salut admin</h1>
+    <a th:href="@{/}">Acceuil </a>
+    <a href="#">> Admin</a><br>
+    <a th:href="@{/admin}">-Admin</a>
+    <form th:action="@{/logout}"  method="post">
+      <button type="submit" >Sign Out</button>
+    </form><br><br>
+    <h1>Campus Categorie :</h1>
+    <form  th:action="@{/admin/campusCat}" th:object="${campusCat}" method="post" enctype="multipart/form-data">
+      <div>
+        <label>Title:</label>
+        <input type="text" th:field="*{titleCmpCat}" required/>
+      </div>
+      <div>
+        <label>Image:</label>
+        <input type="file" name="imageFile" required/>
+      </div>
+      <div>
+        <button type="submit">Save</button>
+      </div>
+    </form><br>
+    <h1>Tourisme element :</h1>
+    <form  th:action="@{/admin/campus}" th:object="${campus}" method="post" enctype="multipart/form-data">
+      <div>
+        <label>Categorie:</label>
+        <select name="idTC" >
+          <option th:each="campusCat:${campusCats}" th:value="${campusCat.getIdCmpCat()}" th:text="${campusCat.getTitleCmpCat()}"></option>
+        </select>
+      </div>
+      <div>
+        <input type="text" th:field="*{titreCmp}" required/>
+      </div>
+      <div>
+        <label>Adresse:</label>
+        <input type="text" th:field="*{adresseCmp}" required/>
+      </div>
+      <div>
+        <label>Title:</label>
+        <textarea th:field="*{descriptionCmp}" rows="10" cols="50" required>
+                </textarea>
+      </div>
+      <div>
+        <label>Images:</label>
+        <input type="file" name="images" multiple th:attr="multiple='multiple'">
+      </div>
+      <div>
+        <button type="submit">Save</button>
+      </div>
+    </form><br>
+</body>
+</html>

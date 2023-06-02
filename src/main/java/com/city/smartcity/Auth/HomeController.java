@@ -1,5 +1,6 @@
 package com.city.smartcity.Auth;
 
+import com.city.smartcity.Etudiant.CampusCatService;
 import com.city.smartcity.Touriste.TourismeCatService;
 import com.city.smartcity.Touriste.TourismeService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class HomeController {
     private final UserService userService;
     private final TourismeCatService tourismeCatService;
+    private final CampusCatService campusCatService;
     @GetMapping
     public ModelAndView index(HttpSession session) throws Exception {
         ModelAndView modelAndView = new ModelAndView("index");
@@ -31,6 +33,8 @@ public class HomeController {
         UserRecord userRecord = (UserRecord)session.getAttribute("user");
         if(userRecord!=null && userRecord.getRole().equals("TOURISTE"))
             modelAndView.addObject("tourismeCats",tourismeCatService.findAll());
+        else if(userRecord!=null && userRecord.getRole().equals("ETUDIANT"))
+            modelAndView.addObject("campusCats",campusCatService.findAll());
         return modelAndView;
     }
     @GetMapping("login")
@@ -52,6 +56,8 @@ public class HomeController {
             return "apropos";
         if(user.getRole().equals("TOURISTE"))
             return "redirect:/tourisme/apropos";
+        else if(user.getRole().equals("ETUDIANT"))
+            return "redirect:/etudiant/apropos";
         return "index";
     }
     @GetMapping("contact")
@@ -61,6 +67,8 @@ public class HomeController {
             return "contact";
         if(user.getRole().equals("TOURISTE"))
             return "redirect:/tourisme/contact";
+        else if(user.getRole().equals("ETUDIANT"))
+            return "redirect:/etudiant/contact";
         return "index";
     }
 //    public String role(){
