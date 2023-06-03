@@ -35,6 +35,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User save(User user) throws Exception {
+        try {
+            return userRepository.save(user);
+        }catch (Exception e){
+            throw new Exception("erreur d'inscription");
+        }
+    }
+
+    @Override
     public UserRecord getPrincipalRecord() throws Exception {
         Optional<User> user = this.findById(this.getPrincipal().getUsername());
         if (user.isPresent())

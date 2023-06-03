@@ -11,7 +11,6 @@ import java.util.ArrayList;
 @Configuration
 @RequiredArgsConstructor
 public class UserConfig {
-
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
@@ -22,6 +21,7 @@ public class UserConfig {
                     new User(
                             "amine",
                             "amine",
+                            "maroc",
                             "admin@gmail.com",
                             passwordEncoder.encode("admin"),
                             true,
@@ -33,6 +33,7 @@ public class UserConfig {
                     new User(
                             "amine",
                             "amine",
+                            "maroc",
                             "etudiant@gmail.com",
                             passwordEncoder.encode("etudiant"),
                             true,
@@ -44,6 +45,7 @@ public class UserConfig {
                     new User(
                             "amine",
                             "amine",
+                            "france",
                             "touriste@gmail.com",
                             passwordEncoder.encode("touriste"),
                             true,
@@ -55,6 +57,7 @@ public class UserConfig {
                     new User(
                             "amine",
                             "amine",
+                            "Espagne",
                             "affaire@gmail.com",
                             passwordEncoder.encode("affaire"),
                             true,
@@ -66,6 +69,7 @@ public class UserConfig {
                     new User(
                             "amine",
                             "amine",
+                            "maroc",
                             "emploi@gmail.com",
                             passwordEncoder.encode("emploi"),
                             true,

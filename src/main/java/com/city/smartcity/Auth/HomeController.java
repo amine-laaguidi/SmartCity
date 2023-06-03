@@ -5,10 +5,10 @@ import com.city.smartcity.Touriste.TourismeCatService;
 import com.city.smartcity.Touriste.TourismeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,6 +22,7 @@ public class HomeController {
     private final UserService userService;
     private final TourismeCatService tourismeCatService;
     private final CampusCatService campusCatService;
+    private final PasswordEncoder passwordEncoder;
     @GetMapping
     public ModelAndView index(HttpSession session) throws Exception {
         ModelAndView modelAndView = new ModelAndView("index");
@@ -44,10 +45,26 @@ public class HomeController {
         return "auth/login";
     }
     @GetMapping("register")
-    public String register(){
+    public String register(Model model){
+        model.addAttribute("user",new User());
         if( userService.getPrincipal() !=null)
             return "redirect:/";
         return "auth/register";
+    }
+    @PostMapping("register")
+    public String register(@ModelAttribute("userRegidtry") User user,
+                           @RequestParam("passwordRepeat") String passwordRepeat) throws Exception {
+        if( !user.getRole().equals("ROLE_TOURISTE") &&
+                !user.getRole().equals("ROLE_AFFAIRE") &&
+                !user.getRole().equals("ROLE_ETUDIANT") &&
+                !user.getRole().equals("ROLE_EMPLOI"))
+            throw new Exception("iscription");
+        if(!user.getPassword().equals(passwordRepeat))
+            throw new Exception("mot de passe de confirmation incrrect");
+        else
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userService.save(user);
+        return "auth/login";
     }
     @GetMapping("apropos")
     public String apropos(HttpSession session){
@@ -74,5 +91,4 @@ public class HomeController {
 //    public String role(){
 //        getPrincipal().getAuthorities().stream().findFirst().get().getAuthority();
 //    }
-
 }
