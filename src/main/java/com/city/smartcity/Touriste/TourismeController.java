@@ -22,7 +22,6 @@ public class TourismeController {
     private final TourismeService tourismeService;
     private final TourismeCatService tourismeCatService;
     private final UserService userService;
-    private final ImageService imageService;
     @GetMapping
     public String tourisme(HttpSession session, Model model) throws Exception {
         if(model.getAttribute("user")==null){
