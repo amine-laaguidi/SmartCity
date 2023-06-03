@@ -72,8 +72,11 @@ public class TourismeController {
             System.out.println("------------------------------tourismesCat error----------------------");
             e.printStackTrace();
         }
+        if(tourismes!=null)
+            model.addAttribute("pages",tourismes.getTotalPages());
         model.addAttribute("tourismeCats",tourismeCats);
         model.addAttribute("tourismes",tourismes);
+        model.addAttribute("currentPage",page);
         model.addAttribute("search",search);
         return "tourisme/tourismeItemsv1";
     }

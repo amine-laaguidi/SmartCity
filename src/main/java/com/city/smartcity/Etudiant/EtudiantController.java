@@ -69,8 +69,11 @@ public class EtudiantController {
             System.out.println("------------------------------campusCat error----------------------");
             e.printStackTrace();
         }
+        if(campuses!=null)
+            model.addAttribute("pages",campuses.getTotalPages());
         model.addAttribute("campusCats",campusCats);
         model.addAttribute("campuses",campuses);
+        model.addAttribute("currentPage",page);
         model.addAttribute("search",search);
         return "etudiant/campuses";
     }
