@@ -1,5 +1,7 @@
 package com.city.smartcity.Entrepreneur;
 
+import com.city.smartcity.DemadeurEmploi.Offre;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,4 +21,8 @@ public class Organisation {
     private String adresseOrg;
     @ElementCollection
     private List<String> imageUrls;
+
+    @OneToMany(mappedBy = "organisation",cascade =CascadeType.ALL)
+    @JsonManagedReference
+    private List<Offre> offres;
 }
