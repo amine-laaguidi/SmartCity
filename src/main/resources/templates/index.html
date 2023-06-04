@@ -82,7 +82,6 @@
                 </div>
             </div>
         </div>
-
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span> -->
@@ -95,19 +94,17 @@
         </a>
     </div>
 </div>
-
-
-    <div th:if="${user != null}">
-        <h1 th:text="${'Bienvenue sur la page daccueil '+user.username + '/' + user.role}"></h1>
-        <h2 th:if="${user.role == 'ADMIN'}" ><a th:href="@{/admin}">admin</a></h2>
-        <h2 th:if="${user.role == 'TOURISTE'}" ><a th:href="@{/tourisme}">Espace tourisme</a></h2>
-        <h2 th:if="${user.role == 'ETUDIANT'}" ><a th:href="@{/etudiant}">Espace etudiant</a></h2>
-        <h2 th:if="${user.role == 'AAFAIRE'}" ><a th:href="@{/affaire}">Espace affaire</a></h2>
+    <div th:if="${session.user != null}">
+        <h1 th:text="${'Bienvenue sur la page daccueil '+session.user.username + '/' + session.user.role}"></h1>
+        <h2 th:if="${session.user.role == 'ADMIN'}" ><a th:href="@{/admin}">admin</a></h2>
+        <h2 th:if="${session.user.role == 'TOURISTE'}" ><a th:href="@{/tourisme}">Espace tourisme</a></h2>
+        <h2 th:if="${session.user.role == 'ETUDIANT'}" ><a th:href="@{/etudiant}">Espace etudiant</a></h2>
+        <h2 th:if="${session.user.role == 'AAFAIRE'}" ><a th:href="@{/affaire}">Espace affaire</a></h2>
         <form th:action="@{/logout}"  method="post">
             <button type="submit" >Sign Out</button>
         </form>
     </div>
-    <div th:if="${user == null}" >
+    <div th:if="${session.user == null}">
         <h1>Bienvenue sur la page d'accueil  </h1>
         <a th:href="@{/login}" >login</a>
     </div>

@@ -75,6 +75,8 @@ public class HomeController {
             return "redirect:/tourisme/apropos";
         else if(user.getRole().equals("ETUDIANT"))
             return "redirect:/etudiant/apropos";
+        else if(user.getRole().equals("AFFAIRE"))
+            return "redirect:/affaire/apropos";
         return "index";
     }
     @GetMapping("contact")
@@ -86,6 +88,8 @@ public class HomeController {
             return "redirect:/tourisme/contact";
         else if(user.getRole().equals("ETUDIANT"))
             return "redirect:/etudiant/contact";
+        else if(user.getRole().equals("AFFAIRE"))
+            return "redirect:/affaire/contact";
         return "index";
     }
 //    public String role(){
