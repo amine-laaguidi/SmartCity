@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/affaire")
 @RequiredArgsConstructor
 public class AffaireController {
     private final UserService userService;
@@ -88,8 +90,8 @@ public class AffaireController {
             model.addAttribute("affairesE",affairesE);
             model.addAttribute("pages",affairesE.getTotalPages());
         }else if(affairesOrg!=null){
-            model.addAttribute("affairesOrg",affairesE);
-            model.addAttribute("pages",affairesE.getTotalPages());
+            model.addAttribute("affairesOrg",affairesOrg);
+            model.addAttribute("pages",affairesOrg.getTotalPages());
         }
         model.addAttribute("affaireCats",affaireCats);
         model.addAttribute("currentPage",page);
@@ -115,11 +117,11 @@ public class AffaireController {
             e.printStackTrace();
         }
         if(affaire!=null){
-            model.addAttribute("affaire",affaire);
+            model.addAttribute("affaire",affaire.get());
         }else if(entreprise!=null){
-            model.addAttribute("entreprise",entreprise);
+            model.addAttribute("entreprise",entreprise.get());
         }else if(organisation!=null){
-            model.addAttribute("organisation",organisation);
+            model.addAttribute("organisation",organisation.get());
         }
         model.addAttribute("affaireCats",affaireCats);
         return "affaire/affaireItem";
