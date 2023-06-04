@@ -16,7 +16,7 @@ public class AffaireCat {
     private Long idAffCat;
     private String titleAffCat;
     private String imgAffCat;
-    @OneToMany(mappedBy = "affaireList",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "affaireCat",cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Affaire> affaireList;
 }

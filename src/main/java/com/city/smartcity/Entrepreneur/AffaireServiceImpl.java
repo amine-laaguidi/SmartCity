@@ -14,7 +14,7 @@ public class AffaireServiceImpl implements AffaireService {
     private final AffaireRepository affaireRepository;
     @Override
     public Page<Affaire> search(AffaireCat affaireCat, String search, Pageable pageable) throws Exception {
-        return affaireRepository.findAffairesByTitreAffCatontainingIgnoreCaseAndAffaireCat(search,affaireCat,pageable);
+        return affaireRepository.findAffairesByTitreAffContainingIgnoreCaseAndAffaireCat(search,affaireCat,pageable);
     }
 
     @Override

@@ -8,24 +8,24 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AffaireCatServiceImpl implements AffaireCatService {
-    private final AffaireCatService affaireCatService;
+    private final AffaireCatRepository affaireCatRepository;
     @Override
     public List<AffaireCat> findAll() throws Exception {
-        return affaireCatService.findAll();
+        return affaireCatRepository.findAll();
     }
 
     @Override
     public Optional<AffaireCat> findById(Long idAffCat) throws Exception {
-        return affaireCatService.findById(idAffCat);
+        return affaireCatRepository.findById(idAffCat);
     }
 
     @Override
     public Optional<AffaireCat> findByTitle(String titleAffCat) throws Exception {
-        return affaireCatService.findByTitle(titleAffCat);
+        return affaireCatRepository.findAffaireCatByTitleAffCat(titleAffCat);
     }
 
     @Override
     public AffaireCat save(AffaireCat affaireCat) throws Exception {
-        return affaireCatService.save(affaireCat);
+        return affaireCatRepository.save(affaireCat);
     }
 }

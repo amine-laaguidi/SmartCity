@@ -10,5 +10,5 @@ public interface AffaireRepository extends JpaRepository<Affaire,Long> {
     Affaire findAffaireByAffaireCatTitleAffCat(String titleAffCat);
     Page<Affaire> findAll(Pageable pageable);
     Page<Affaire> findAffaireByAffaireCat(AffaireCat affaireCat, Pageable pageable);
-    Page<Affaire> findAffairesByTitreAffCatontainingIgnoreCaseAndAffaireCat(String titleAffCat,AffaireCat affaireCat,Pageable pageable);
+    Page<Affaire> findAffairesByTitreAffContainingIgnoreCaseAndAffaireCat(String titleAff,AffaireCat affaireCat,Pageable pageable);
 }
