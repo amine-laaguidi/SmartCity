@@ -21,6 +21,8 @@
             <li class="nav-item" th:if="${session.user != null}">
               <a class="nav-link" th:if="${session.user.getRole().equals('TOURISTE')}" th:href="@{/tourisme}"> <button class="btn-primary" style="border: 0px solid;">Tourisme</button> </a>
               <a class="nav-link" th:if="${session.user.getRole().equals('ETUDIANT')}" th:href="@{/etudiant}"> <button class="btn-primary" style="border: 0px solid;">Etudiant</button> </a>
+              <a class="nav-link" th:if="${session.user.getRole().equals('AFFAIRE')}" th:href="@{/affaire}"> <button class="btn-primary" style="border: 0px solid;">Entrepreneur</button> </a>
+              <a class="nav-link" th:if="${session.user.getRole().equals('ADMIN')}" th:href="@{/admin}"> <button class="btn-primary" style="border: 0px solid;">Admin</button> </a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown"> Categories </a>
@@ -30,11 +32,16 @@
               <ul class="dropdown-menu dropdown-menu-left v1" th:if="${session.user!=null && (session.user.getRole().equals('ETUDIANT') || (#request.requestURI.startsWith('/etudiant') && session.user.getRole().equals('ADMIN') ))}">
                 <li th:each="campusCat:${campusCats}" ><a class="dropdown-item" th:href="@{'/etudiant/' + ${campusCat.titleCmpCat}}" th:text="${campusCat.getTitleCmpCat()}" ></a></li>
               </ul>
-              <ul class="dropdown-menu dropdown-menu-left v2" th:if="${session.user==null}">
-                <li><a class="dropdown-item" th:href="@{/login}"> Tourisme</a></li>
-                <li><a class="dropdown-item" th:href="@{/login}"> Etudes</a></li>
-                <li><a class="dropdown-item" th:href="@{/login}"> Emploi</a></li>
-                <li><a class="dropdown-item" th:href="@{/login}"> Affaires</a></li>
+              <ul class="dropdown-menu dropdown-menu-left v1" th:if="${session.user!=null && (session.user.getRole().equals('AFFAIRE') || (#request.requestURI.startsWith('/affaire') && session.user.getRole().equals('ADMIN') ))}">
+                <li th:each="affaireCat:${affaireCats}" ><a class="dropdown-item" th:href="@{'/affaire/' + ${affaireCat.titleAffCat}}" th:text="${affaireCat.getTitleAffCat()}" ></a></li>
+                <li><a class="dropdown-item" th:href="@{/affaire/entreprise}">Entreprise</a></li>
+                <li><a class="dropdown-item" th:href="@{/affaire/organisation}">Organisation</a></li>
+              </ul>
+              <ul class="dropdown-menu dropdown-menu-left v2" th:if="${session.user==null ||  (#request.requestURI.startsWith('/') && session.user.getRole().equals('ADMIN') ) }">
+                <li><a class="dropdown-item" th:href="@{/tourisme}"> Tourisme</a></li>
+                <li><a class="dropdown-item" th:href="@{/etudiant}"> Etudes</a></li>
+                <li><a class="dropdown-item" th:href="@{/emploi}"> Emploi</a></li>
+                <li><a class="dropdown-item" th:href="@{/affaire}"> Affaires</a></li>
               </ul>
             </li>
             <li class="nav-item"><a class="nav-link" th:href="@{/apropos}"> A propos </a></li>
@@ -68,16 +75,35 @@
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown"> Categories </a>
-                <ul class="dropdown-menu dropdown-menu-left"  >
-                  <li th:each="campusCat:${campusCats}" ><a class="dropdown-item" th:href="@{'/etudiant/' + ${campusCat.titleCmpCat}}" th:text="${campusCat.titleCmpCat}" ></a></li>
+                <ul class="dropdown-menu dropdown-menu-left" th:if="${session.user!=null &&(session.user.getRole().equals('TOURISTE') || (#request.requestURI.startsWith('/tourisme') && session.user.getRole().equals('ADMIN') ))}">
+                  <li th:each="tourismeCat:${tourismeCats}" ><a class="dropdown-item" th:href="@{'/tourisme/' + ${tourismeCat.titleTC}}" th:text="${tourismeCat.getTitleTC()}" ></a></li>
+                </ul>
+                <ul class="dropdown-menu dropdown-menu-left" th:if="${session.user!=null && (session.user.getRole().equals('ETUDIANT') || (#request.requestURI.startsWith('/etudiant') && session.user.getRole().equals('ADMIN') ))}">
+                  <li th:each="campusCat:${campusCats}" ><a class="dropdown-item" th:href="@{'/etudiant/' + ${campusCat.titleCmpCat}}" th:text="${campusCat.getTitleCmpCat()}" ></a></li>
+                </ul>
+                <ul class="dropdown-menu dropdown-menu-left" th:if="${session.user!=null && (session.user.getRole().equals('AFFAIRE') || (#request.requestURI.startsWith('/affaire') && session.user.getRole().equals('ADMIN') ))}">
+                  <li th:each="affaireCat:${affaireCats}" ><a class="dropdown-item" th:href="@{'/affaire/' + ${affaireCat.titleAffCat}}" th:text="${affaireCat.getTitleAffCat()}" ></a></li>
+                  <li><a class="dropdown-item" th:href="@{/affaire/entreprise}">Entreprise</a></li>
+                  <li><a class="dropdown-item" th:href="@{/affaire/organisation}">Organisation</a></li>
+                </ul>
+                <ul class="dropdown-menu dropdown-menu-left v2" th:if="${session.user==null}">
+                  <li><a class="dropdown-item" th:href="@{/login}"> Tourisme</a></li>
+                  <li><a class="dropdown-item" th:href="@{/login}"> Etudes</a></li>
+                  <li><a class="dropdown-item" th:href="@{/login}"> Emploi</a></li>
+                  <li><a class="dropdown-item" th:href="@{/login}"> Affaires</a></li>
                 </ul>
               </li>
               <li class="nav-item"><a class="nav-link" th:href="@{/apropos}"> A propos </a></li>
               <li class="nav-item"><a class="nav-link" th:href="@{/contact}"> contact </a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link active" href="#" data-toggle="dropdown"><i class="fa fa-user"></i> Compte</a>
-                <ul class="dropdown-menu dropdown-menu-left">
+                <ul class="dropdown-menu dropdown-menu-left"  th:if="${session.user!=null}" >
                   <li><a class="dropdown-item" th:href="@{/logout}"> Déconnexion </a></li>
+                </ul>
+                <ul class="dropdown-menu dropdown-menu-left"  th:if="${session.user==null}" >
+                  <li><a class="dropdown-item" th:href="@{/login}"> Connexion </a>
+                  </li>
+                  <li><a class="dropdown-item" th:href="@{/register}"> Inscription </a></li>
                 </ul>
               </li>
             </ul>
