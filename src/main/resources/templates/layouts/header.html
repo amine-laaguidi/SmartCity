@@ -22,6 +22,7 @@
               <a class="nav-link" th:if="${session.user.getRole().equals('TOURISTE')}" th:href="@{/tourisme}"> <button class="btn-primary" style="border: 0px solid;">Tourisme</button> </a>
               <a class="nav-link" th:if="${session.user.getRole().equals('ETUDIANT')}" th:href="@{/etudiant}"> <button class="btn-primary" style="border: 0px solid;">Etudiant</button> </a>
               <a class="nav-link" th:if="${session.user.getRole().equals('AFFAIRE')}" th:href="@{/affaire}"> <button class="btn-primary" style="border: 0px solid;">Entrepreneur</button> </a>
+              <a class="nav-link" th:if="${session.user.getRole().equals('EMPLOI')}" th:href="@{/emploi}"> <button class="btn-primary" style="border: 0px solid;">Emploi</button> </a>
               <a class="nav-link" th:if="${session.user.getRole().equals('ADMIN')}" th:href="@{/admin}"> <button class="btn-primary" style="border: 0px solid;">Admin</button> </a>
             </li>
             <li class="nav-item dropdown">
@@ -36,6 +37,11 @@
                 <li th:each="affaireCat:${affaireCats}" ><a class="dropdown-item" th:href="@{'/affaire/' + ${affaireCat.titleAffCat}}" th:text="${affaireCat.getTitleAffCat()}" ></a></li>
                 <li><a class="dropdown-item" th:href="@{/affaire/entreprise}">Entreprise</a></li>
                 <li><a class="dropdown-item" th:href="@{/affaire/organisation}">Organisation</a></li>
+              </ul>
+              <ul class="dropdown-menu dropdown-menu-left v1" th:if="${session.user!=null && (session.user.getRole().equals('EMPLOI') || (#request.requestURI.startsWith('/emploi') && session.user.getRole().equals('ADMIN') ))}">
+                <li><a class="dropdown-item" th:href="@{/emploi/offres}">Offres d'emploi</a></li>
+                <li><a class="dropdown-item" th:href="@{/emploi/entreprise}">Entreprise</a></li>
+                <li><a class="dropdown-item" th:href="@{/emploi/organisation}">Organisation</a></li>
               </ul>
               <ul class="dropdown-menu dropdown-menu-left v2" th:if="${session.user==null ||  (#request.requestURI.startsWith('/') && session.user.getRole().equals('ADMIN') ) }">
                 <li><a class="dropdown-item" th:href="@{/tourisme}"> Tourisme</a></li>
@@ -85,6 +91,11 @@
                   <li th:each="affaireCat:${affaireCats}" ><a class="dropdown-item" th:href="@{'/affaire/' + ${affaireCat.titleAffCat}}" th:text="${affaireCat.getTitleAffCat()}" ></a></li>
                   <li><a class="dropdown-item" th:href="@{/affaire/entreprise}">Entreprise</a></li>
                   <li><a class="dropdown-item" th:href="@{/affaire/organisation}">Organisation</a></li>
+                </ul>
+                <ul class="dropdown-menu dropdown-menu-left v1" th:if="${session.user!=null && (session.user.getRole().equals('EMPLOI') || (#request.requestURI.startsWith('/emploi') && session.user.getRole().equals('ADMIN') ))}">
+                  <li><a class="dropdown-item" th:href="@{/emploi/offres}">Offres d'emploi</a></li>
+                  <li><a class="dropdown-item" th:href="@{/emploi/entreprise}">Entreprise</a></li>
+                  <li><a class="dropdown-item" th:href="@{/emploi/organisation}">Organisation</a></li>
                 </ul>
                 <ul class="dropdown-menu dropdown-menu-left v2" th:if="${session.user==null}">
                   <li><a class="dropdown-item" th:href="@{/login}"> Tourisme</a></li>
