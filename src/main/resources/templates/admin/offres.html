@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Admin page</title>
+</head>
+<body>
+<h1>Salut admin</h1>
+<a th:href="@{/}">Acceuil </a>
+<a href="#">> Admin</a><br>
+<a th:href="@{/admin}">-Admin</a>
+<form th:action="@{/logout}"  method="post">
+  <button type="submit" >Sign Out</button>
+</form><br><br>
+<h1>Domaine d'offre :</h1>
+<form  th:action="@{/admin/domaine}" th:object="${domaine}" method="post" enctype="multipart/form-data">
+  <div>
+    <label>Title:</label>
+    <input type="text" th:field="*{titreDom}" required/>
+  </div>
+  <div>
+    <button type="submit">Save</button>
+  </div>
+</form><br>
+<h1>offre element :</h1>
+<form  th:action="@{/admin/offres}" th:object="${offre}" method="post" enctype="multipart/form-data">
+  <div>
+    <label>Domaine:</label>
+    <select name="idDom" >
+      <option th:each="domaine:${domaines}" th:value="${domaine.idDom}" th:text="${domaine.titreDom}"></option>
+    </select>
+  </div>
+  <div>
+    <label>Titre:</label>
+    <input type="text" th:field="*{titreOff}" required/>
+  </div>
+  <div id="choix">
+    <input type="radio" id="r_aucun" name="choix" value="0" checked onclick="check()">
+    <label for="r_aucun">aucun</label><br>
+    <input type="radio" id="r_entreprise" name="choix" value="1"  onclick="check()">
+    <label for="r_entreprise">entreprise</label><br>
+    <input type="radio" id="r_organisation" name="choix" value="2" onclick="check()">
+    <label for="r_organisation">organisation</label><br><br>
+  </div>
+  <div>
+    <label>Entreprise:</label>
+    <select name="idE" id="entreprise" disabled>
+      <option value="0">Entreprise</option>
+      <option th:each="entreprise:${entreprises}" th:value="${entreprise.idE}" th:text="${entreprise.titreE}"></option>
+    </select>
+  </div>
+  <div>
+    <label>Organisation:</label>
+    <select name="idOrg" id="organisation" disabled>
+      <option value="0">Organisation</option>
+      <option th:each="organisation:${organisations}" th:value="${organisation.idOrg}" th:text="${organisation.titreOrg}"></option>
+    </select>
+  </div>
+  <div>
+    <label>Adresse:</label>
+    <input type="text" th:field="*{adresseOff}" required/>
+  </div>
+  <div>
+    <label>Description:</label>
+    <textarea th:field="*{descriptionOff}" rows="10" cols="50" required>
+            </textarea>
+  </div>
+  <div>
+    <label>Images:</label>
+    <input type="file" name="images" multiple th:attr="multiple='multiple'">
+  </div>
+  <div>
+    <button type="submit">Save</button>
+  </div>
+</form><br>
+</body>
+<script>
+  const rAucun= document.getElementById("r_aucun");
+  const rOrganisation= document.getElementById("r_organisation");
+  const rOntreprise= document.getElementById("r_entreprise");
+  var organisation = document.getElementById("organisation");
+  var entreprise = document.getElementById("entreprise");
+  function check(){
+    if(rAucun.checked){
+      organisation.disabled = true;
+      entreprise.disabled = true;
+      organisation.options[organisation.selectedIndex].selected = false;
+      organisation.options[0].selected = true;
+      entreprise.options[entreprise.selectedIndex].selected = false;
+      entreprise.options[0].selected = true;
+    }else if(rOrganisation.checked){
+      organisation.disabled = false;
+      entreprise.options[entreprise.selectedIndex].selected = false;
+      entreprise.options[0].selected = true;
+      entreprise.disabled = true;
+    }else if(rOntreprise.checked){
+      entreprise.disabled = false;
+      organisation.options[organisation.selectedIndex].selected = false;
+      organisation.options[0].selected = true;
+      organisation.disabled = true;
+    }
+  }
+</script>
+</html>
