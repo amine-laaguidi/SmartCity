@@ -53,7 +53,15 @@ public class OffreController {
         model.addAttribute("organisations", organisationService.findAll());
         model.addAttribute("domaines", domaineService.findAll());
         try {
-            offres = offreService.search(titreDom, titreE, titreOrg, titreOff, PageRequest.of(page, 10));
+            if(!titreE.equals("") && !titreOrg.equals("")){
+                offres = offreService.search(titreDom,titreE, titreOrg,titreOff, PageRequest.of(page, 10));
+            }else if(!titreE.equals("")){
+                offres = offreService.search(titreDom, titreE,titreOff, PageRequest.of(page, 10));
+            }else if(!titreOrg.equals("")){
+                offres = offreService.searchOrg(titreDom, titreOrg,titreOff, PageRequest.of(page, 10));
+            }else{
+                offres = offreService.search(titreDom,titreOff, PageRequest.of(page, 10));
+            }
         } catch (Exception e) {
             System.out.println("------------------------------tourismesCat error----------------------");
             e.printStackTrace();
@@ -100,33 +108,49 @@ public class OffreController {
         model.addAttribute("search",search);
         return "emploi/entreprise";
     }
-//    @GetMapping("/{titleAffCat}/{idAff}")
-//    public String affaireItem(Model model, @PathVariable("titleAffCat")String titleAffCat,@PathVariable("idAff")Long idAff) throws Exception {
-//        Optional<Affaire> affaire = null;
-//        Optional<Entreprise> entreprise = null;
-//        Optional<Organisation> organisation = null;
-//        List<AffaireCat> affaireCats =null;
-//        try{
-//            if(titleAffCat.equals("entreprise"))
-//                entreprise = entrepriseService.findEtrepriseByIdE(idAff);
-//            else if(titleAffCat.equals("organisation"))
-//                organisation = organisationService.findOrganisationByIdOrg(idAff);
-//            else{
-//                affaire = affaireService.findAffaireByIdAff(idAff);
-//            }
-//            affaireCats = affaireCatService.findAll();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//        if(affaire!=null){
-//            model.addAttribute("affaire",affaire.get());
-//        }else if(entreprise!=null){
-//            model.addAttribute("entreprise",entreprise.get());
-//        }else if(organisation!=null){
-//            model.addAttribute("organisation",organisation.get());
-//        }
-//        model.addAttribute("affaireCats",affaireCats);
-//        return "affaire/affaireItem";
-//    }
+    @GetMapping("/entreprise/{idAff}")
+    public String entrepriseItem(Model model,@PathVariable("idAff")Long idAff) throws Exception {
+        Optional<Entreprise> entreprise = null;
+        List<AffaireCat> affaireCats =null;
+        try{
+            entreprise = entrepriseService.findEtrepriseByIdE(idAff);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+         if(entreprise!=null)
+            model.addAttribute("entreprise",entreprise.get());
+        return "emploi/entrepriseItem";
+    }
+    @GetMapping("/organisation")
+    public String organisation(Model model,@RequestParam(value = "page",defaultValue = "0") int page, @RequestParam(value = "search", defaultValue = "") String search) throws Exception {
+        Page<Organisation> organisations = null;
+        try{
+            organisations = organisationService.search(search,PageRequest.of(page,10));
+        }catch (Exception e){
+            System.out.println("------------------------------tourismesCat error----------------------");
+            e.printStackTrace();
+        }
+        if(organisations!=null){
+            model.addAttribute("organisations",organisations);
+            model.addAttribute("pages",organisations.getTotalPages());
+        }
+        model.addAttribute("currentPage",page);
+        model.addAttribute("search",search);
+        return "emploi/organisation";
+    }
+    @GetMapping("/organisation/{idAff}")
+    public String organisationItem(Model model,@PathVariable("idAff")Long idAff) throws Exception {
+        Optional<Organisation> organisation = null;
+        List<AffaireCat> affaireCats =null;
+        try{
+            organisation = organisationService.findOrganisationByIdOrg(idAff);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(organisation!=null)
+            model.addAttribute("organisation",organisation.get());
+        return "emploi/organisationItem";
+    }
+
 }
 
