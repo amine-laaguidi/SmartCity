@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service @RequiredArgsConstructor
 public class DomaineServiceImpl implements DomaineService {
@@ -17,5 +18,10 @@ public class DomaineServiceImpl implements DomaineService {
     @Override
     public List<Domaine> findAll() {
         return domaineRepository.findAll();
+    }
+
+    @Override
+    public Optional<Domaine> findByIdDom(Long idDom) {
+        return domaineRepository.findById(idDom);
     }
 }
