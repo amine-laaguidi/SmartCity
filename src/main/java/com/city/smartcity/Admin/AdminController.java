@@ -1,6 +1,10 @@
 package com.city.smartcity.Admin;
 
 import com.city.smartcity.Auth.UserService;
+import com.city.smartcity.DemadeurEmploi.Domaine;
+import com.city.smartcity.DemadeurEmploi.DomaineService;
+import com.city.smartcity.DemadeurEmploi.Offre;
+import com.city.smartcity.DemadeurEmploi.OffreService;
 import com.city.smartcity.Entrepreneur.*;
 import com.city.smartcity.Etudiant.Campus;
 import com.city.smartcity.Etudiant.CampusCat;
@@ -29,11 +33,14 @@ public class AdminController {
     private final TourismeCatService tourismeCatService;
     private final TourismeService tourismeService;
     private final CampusCatService campusCatService;
+    private final CampusService campusService;
     private final OrganisationService organisationService;
     private final EntrepriseService entrepriseService;
     private final AffaireService affaireService;
     private final AffaireCatService affaireCatService;
-    private final CampusService campusService;
+    private final OffreService offreService;
+    private final DomaineService domaineService;
+
     @GetMapping()
     public String admin(){
         return "admin/admin";
@@ -188,4 +195,57 @@ public class AdminController {
         }
         return "redirect:/admin/affaire";
     }
+    @GetMapping("/offres")
+    public String offres(Model model) throws Exception {
+        model.addAttribute("domaine", new Domaine());
+        model.addAttribute("offre", new Offre());
+        model.addAttribute("domaines",domaineService.findAll());
+        model.addAttribute("organisations",organisationService.findAll());
+        model.addAttribute("entreprises",entrepriseService.findAll());
+        return "admin/offres";
+    }
+    @PostMapping("/domaine")
+    public String addDomaine(@ModelAttribute("domaine") Domaine domaine)  {
+            try {
+                domaineService.save(domaine);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        return "redirect:/admin/offres";
+    }
+
+    @PostMapping("/offres")
+    public String addOffres(@ModelAttribute("offre") Offre offre,
+                             @RequestParam("images") List<MultipartFile> images,
+                             @RequestParam(value="idE",defaultValue = "0") Long idE,
+                             @RequestParam(value="idOrg",defaultValue = "0") Long idOrg,
+                             @RequestParam(value = "idDom") Long idDom) {
+        if (!images.isEmpty()) {
+            if(idOrg!=0){
+                try {
+                    offre.setOrganisation(organisationService.findOrganisationByIdOrg(idOrg).get());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }else if(idE!=0){
+                try {
+                    offre.setEntreprise(entrepriseService.findEtrepriseByIdE(idE).get());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            try {
+                offre.setDomaine(domaineService.findByIdDom(idDom).get());
+                offre.setImageUrls(new ArrayList<String>());
+                for (MultipartFile image : images) {
+                    offre.getImageUrls().add(imageService.saveImage(image,"EMPLOI"));
+                }
+                offreService.save(offre);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return "redirect:/admin/offres";
+    }
 }
+
