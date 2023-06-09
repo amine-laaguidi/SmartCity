@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/layouts/head :: head}"></div>
+<body>
+<div th:replace="~{/layouts/loading :: div}"></div>
+<div th:replace="~{/layouts/header :: header}"></div>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="breadcrumbs bg-light mb-4">
+          <li class="breadcrumbs__item">
+            <a th:href="@{/}" class="breadcrumbs__url">
+              <i class="fa fa-home"></i> Acceuil</a>
+          </li>
+          <li class="breadcrumbs__item">
+            <a th:href="@{/emploi}" class="breadcrumbs__url">Emploi</a>
+          </li>
+          <li class="breadcrumbs__item">
+            <a href="#"  class="breadcrumbs__url breadcrumbs__item--current">Organisation</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <aside class="wrapper__list__article ">
+          <h4 class="border_section" >Organisation</h4>
+          <div class="widget__form-search-bar">
+            <form class="row no-gutters" method="get" th:action="@{/emploi/Organisation}">
+              <div class="col">
+                <input class="form-control border-secondary border-right-0 rounded-0" value="" name="search"  th:value="${search}" placeholder="Search">
+              </div>
+              <div class="col-auto">
+                <button class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+          <!-- Post Article List -->
+          <div class="card__post card__post-list card__post__transition mt-30" th:each="organisation:${organisations}">
+            <div class="row ">
+              <div class="col-md-5">
+                <div class="card__post__transition">
+                  <a th:href="@{'/emploi/organisation/'+${organisation.idOrg}}" >
+                    <img th:src="@{/images/{imageName}(imageName=${organisation.imageUrls.get(0)})}" class="img-fluid w-100" alt="">
+                  </a>
+                </div>
+              </div>
+              <div class="col-md-7 my-auto pl-0">
+                <div class="card__post__body ">
+                  <div class="card__post__content  ">
+                    <div class="card__post__author-info mb-2">
+                      <ul class="list-inline">
+                        <li class="list-inline-item">
+                          <span class="text-primary" th:text="${organisation.adresseOrg}">
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="card__post__title">
+                      <h5>
+                        <a th:href="@{'/emploi/organisation/' + ${organisation.idOrg}}" th:text="${organisation.titreOrg}">
+                        </a>
+                      </h5>
+                      <p class="d-none d-lg-block d-xl-block mb-0" th:text="${organisation.descriptionOrg.substring(0,400)}">
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </aside>
+      </div>
+      </li>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-area">
+      <div class="pagination wow fadeIn animated" data-wow-duration="2s" data-wow-delay="0.5s" style="visibility: visible; animation-duration: 2s; animation-delay: 0.5s; animation-name: fadeIn;">
+        <a href="#" th:if="${pages}!=null" th:each="page,status:${pages}"
+           th:class="${currentPage == status.index ? 'active' : ''}"
+           th:text="${status.index +1  }"
+           th:href="@{/affaire/organisation(page=${status.index}, search=${search})}">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<div th:replace="~{/layouts/footer :: section}"></div>
+<a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+<script type="text/javascript" th:src="@{/js/index.bundle.js}"></script></body>
+</html>
