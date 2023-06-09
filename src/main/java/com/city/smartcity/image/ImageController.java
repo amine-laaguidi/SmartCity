@@ -39,8 +39,11 @@ public class ImageController {
         }
         // Apply authorization logic here (e.g., check user roles)
         System.out.println(user.getRole());
-        System.out.println(imageName.split("_")[0]);
-        if (!user.getRole().equals(imageName.split("_")[0]) && !user.getRole().equals("ADMIN"))
+        System.out.println();
+        String imageRole= imageName.split("_")[0];
+        if (  !user.getRole().equals(imageRole)
+                && !user.getRole().equals("ADMIN")
+                && (user.getRole().equals("EMPLOI") && (!imageRole.equals("AFFAIRE"))))
             throw new Exception("not authorised");
         // Return the image as a response entity
         return ResponseEntity.ok()
