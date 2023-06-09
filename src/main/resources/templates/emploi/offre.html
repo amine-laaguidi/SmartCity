@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/layouts/head :: head}"></div>
+<body>
+<div th:replace="~{/layouts/loading :: div}"></div>
+<div th:replace="~{/layouts/header :: header}"></div>
+<section class="pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumbs bg-light mb-4">
+                    <li class="breadcrumbs__item">
+                        <a th:href="@{/}" class="breadcrumbs__url">
+                            <i class="fa fa-home"></i> Acceuil</a>
+                    </li>
+                    <li class="breadcrumbs__item">
+                        <a th:href="@{/emploi}" class="breadcrumbs__url">Emploi</a>
+                    </li>
+                    <li class="breadcrumbs__item">
+                        <a th:href="@{/emploi/offres}"  class="breadcrumbs__url breadcrumbs__item--current">Offres</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-12" t>
+                <div class="wrap__article-detail">
+                    <div class="wrap__article-detail-title">
+                        <h1  th:text="${offre.titreOff}"></h1>
+                    </div>
+                    <hr>
+                    <div class="slider-container ">
+                        <div class="container-slider-image-full nopadd">
+                            <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+                                <ol class="carousel-indicators d-none">
+                                    <li th:each="image, index :${offre.imageUrls}" data-target="#carouselExampleIndicators" th:attr="data-slide-to=${index.count - 1}"  th:class="${index.count - 1 == 0} ? 'active' : ''"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item" th:each="image, index :${offre.imageUrls}"  th:class="${index.count - 1 == 0} ? 'carousel-item active' : 'carousel-item'">
+                                        <img  class="d-block w-100" th:src="@{/images/{imageName}(imageName=${image})}" alt="First slide" style="opacity: 1;">
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                    <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span> -->
+                                    <i class="fa fa-2x fa-angle-left"></i>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                    <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span> -->
+                                    <i class="fa fa-2x fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <h5>&nbsp;</h5>
+                    <div class="wrap__article-detail-content">
+                        <p class="d-none d-lg-block d-xl-block mb-0" th:if="${offre.entreprise !=null}"
+                           th:utext="${'<b>Entreprise:</b> <a href=&quot;/emploi/entreprise/'+offre.entreprise.idE+'&quot;>'+offre.entreprise.titreE+'</a>'}"></p>
+                        <p class="d-none d-lg-block d-xl-block mb-0" th:if="${offre.organisation !=null}"
+                           th:utext="${'<b>Organisation:</b> <a href=&quot;/emploi/organisation/'+offre.organisation.idOrg+'&quot;>'+offre.organisation.titreOrg+'</a>'}"></p>
+                        <p class="d-none d-lg-block d-xl-block mb-0" th:utext="${'<b>Domaine:</b> '+offre.domaine.titreDom}"></p>
+                        <p th:text="${offre.descriptionOff}">
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+<div th:replace="~{/layouts/footer :: section}"></div>
+<a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+<script type="text/javascript" th:src="@{/js/index.bundle.js}"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/layouts/head :: head}"></div>
+<body>
+<div th:replace="~{/layouts/loading :: div}"></div>
+<div th:replace="~{/layouts/header :: header}"></div>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="breadcrumbs bg-light mb-4">
+          <li class="breadcrumbs__item">
+            <a th:href="@{/}" class="breadcrumbs__url">
+              <i class="fa fa-home"></i> Acceuil</a>
+          </li>
+          <li class="breadcrumbs__item">
+            <a th:href="@{/emploi}" class="breadcrumbs__url">Emploi</a>
+          </li>
+          <li class="breadcrumbs__item">
+            <a href="#"  class="breadcrumbs__url breadcrumbs__item--current">Offres</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <aside class="wrapper__list__article ">
+          <h4 class="border_section" >Offres</h4>
+          <div class="widget__form-search-bar">
+            <form class="" method="get" th:action="@{/emploi/offres}">
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                  <input class="form-control border-secondary border-right-0 rounded-0" value="" name="titreOff"  th:value="${titreOff}" placeholder="Search">
+                </div>
+                <div class="form-group col-md-2">
+                  <select class="form-control" name="titreDom">
+                    <option value="" th:selected="${titreDom.equals('')}">Domaine</option>
+                    <option th:each="domaine:${domaines}" th:selected="${titreDom.equals(domaine.titreDom)}" th:value="${domaine.titreDom}" th:text="${domaine.titreDom}" > </option>
+                  </select>
+                </div>
+                <div class=" form-group col-md-3">
+                  <select class="form-control" name="titreE">
+                    <option value="" th:selected="${titreE.equals('')}">Entreprise</option>
+                    <option th:each="entreprise:${entreprises}" th:selected="${titreE.equals(entreprise.titreE)}" th:value="${entreprise.titreE}" th:text="${entreprise.titreE}" > </option>
+                  </select>
+                </div>
+                <div class="form-group col-md-3">
+                  <select class="form-control" name="titreOrg">
+                    <option value="" th:selected="${titreOrg.equals('')}">Organisation</option>
+                    <option th:each="organisation:${organisations}" th:selected="${titreOrg.equals(organisation.titreOrg)}" th:value="${organisation.titreOrg}" th:text="${organisation.titreOrg}" > </option>
+                  </select>
+                </div>
+                <div class="form-group col-md-auto">
+                  <button class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+          <!-- Post Article List -->
+          <div class="card__post card__post-list card__post__transition mt-30" th:each="offre:${offres}">
+            <div class="row ">
+              <div class="col-md-5">
+                <div class="card__post__transition">
+                  <a th:href="@{'/emploi/offres/'+${offre.idOff}}" >
+                    <img th:src="@{/images/{imageName}(imageName=${offre.imageUrls.get(0)})}" class="img-fluid w-100" alt="">
+                  </a>
+                </div>
+              </div>
+              <div class="col-md-7 my-auto pl-0">
+                <div class="card__post__body ">
+                  <div class="card__post__content  ">
+                    <div class="card__post__author-info mb-2">
+                      <ul class="list-inline">
+                        <li class="list-inline-item">
+                          <span class="text-primary" th:text="${offre.adresseOff}">
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="card__post__title">
+                      <h5>
+                        <a th:href="@{'/emploi/offres/' + ${offre.idOff}}" th:text="${offre.titreOff}">
+                        </a>
+                      </h5>
+                      <p class="d-none d-lg-block d-xl-block mb-0" th:if="${offre.entreprise !=null}"
+                         th:utext="${'<b>Entreprise:</b> <a href=&quot;/emploi/entreprise/'+offre.entreprise.idE+'&quot;>'+offre.entreprise.titreE+'</a>'}"></p>
+                      <p class="d-none d-lg-block d-xl-block mb-0" th:if="${offre.organisation !=null}"
+                         th:utext="${'<b>Organisation:</b> <a href=&quot;/emploi/organisation/'+offre.organisation.idOrg+'&quot;>'+offre.organisation.titreOrg+'</a>'}"></p>
+                      <p class="d-none d-lg-block d-xl-block mb-0" th:utext="${'<b>Domaine:</b> '+offre.domaine.titreDom}"></p>
+                      <p class="d-none d-lg-block d-xl-block mb-0" th:text="${offre.descriptionOff.substring(0,200)}">
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </aside>
+      </div>
+      </li>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-area">
+      <div class="pagination wow fadeIn animated" data-wow-duration="2s" data-wow-delay="0.5s" style="visibility: visible; animation-duration: 2s; animation-delay: 0.5s; animation-name: fadeIn;">
+        <a href="#" th:if="${pages}!=null" th:each="page,status:${pages}"
+           th:class="${currentPage == status.index ? 'active' : ''}"
+           th:text="${status.index +1  }"
+           th:href="@{/emploi/entreprise(page=${status.index}, search=${search})}">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<div th:replace="~{/layouts/footer :: section}"></div>
+<a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+<script type="text/javascript" th:src="@{/js/index.bundle.js}"></script></body>
+</html>
