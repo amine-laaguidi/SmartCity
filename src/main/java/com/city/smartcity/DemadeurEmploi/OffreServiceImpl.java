@@ -14,6 +14,22 @@ public class OffreServiceImpl implements OffreService {
     public Page<Offre> search(String titreDom, String titreE, String titreOrg, String titreOff, Pageable pageable) throws Exception {
         return offreRepository.findByDomaineAndSearch(titreDom,titreE,titreOrg,titreOff,pageable);
     }
+
+    @Override
+    public Page<Offre> search(String titreDom, String titreE, String titreOff, Pageable pageable) throws Exception {
+        return offreRepository.findByDomaineAndSearch(titreDom,titreE,titreOff,pageable);
+    }
+
+    @Override
+    public Page<Offre> searchOrg(String titreDom, String titreOrg, String titreOff, Pageable pageable) throws Exception {
+        return offreRepository.findByDomaineAndSearchOrg(titreDom,titreOrg,titreOff,pageable);
+    }
+
+    @Override
+    public Page<Offre> search(String titreDom, String titreOff, Pageable pageable) throws Exception {
+        return offreRepository.findByDomaineAndSearch(titreDom,titreOff,pageable);
+    }
+
     @Override
     public Optional<Offre> getOffreById(Long idOff) throws Exception {
         return offreRepository.findById(idOff);

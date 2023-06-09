@@ -12,4 +12,10 @@ import org.springframework.security.core.parameters.P;
 public interface OffreRepository extends JpaRepository<Offre,Long> {
     @Query("SELECT o FROM Offre o WHERE o.domaine.titreDom LIKE %:titreDom% AND o.entreprise.titreE like %:titreE% AND o.organisation.titreOrg like %:titreOrg% AND o.titreOff LIKE %:titreOff% ")
     Page<Offre> findByDomaineAndSearch(String titreDom,String titreE,String titreOrg,String titreOff, Pageable pageable);
+    @Query("SELECT o FROM Offre o WHERE o.domaine.titreDom LIKE %:titreDom% AND o.entreprise.titreE like %:titreE% AND o.titreOff LIKE %:titreOff% ")
+    Page<Offre> findByDomaineAndSearch(String titreDom,String titreE,String titreOff, Pageable pageable);
+    @Query("SELECT o FROM Offre o WHERE o.domaine.titreDom LIKE %:titreDom% AND  o.organisation.titreOrg like %:titreOrg% AND o.titreOff LIKE %:titreOff% ")
+    Page<Offre> findByDomaineAndSearchOrg(String titreDom,String titreOrg,String titreOff, Pageable pageable);
+    @Query("SELECT o FROM Offre o WHERE o.domaine.titreDom LIKE %:titreDom% AND o.titreOff LIKE %:titreOff% ")
+    Page<Offre> findByDomaineAndSearch(String titreDom,String titreOff, Pageable pageable);
 }
