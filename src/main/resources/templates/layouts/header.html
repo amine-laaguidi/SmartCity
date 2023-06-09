@@ -43,7 +43,7 @@
                 <li><a class="dropdown-item" th:href="@{/emploi/entreprise}">Entreprise</a></li>
                 <li><a class="dropdown-item" th:href="@{/emploi/organisation}">Organisation</a></li>
               </ul>
-              <ul class="dropdown-menu dropdown-menu-left v2" th:if="${session.user==null ||  (#request.requestURI.startsWith('/') && session.user.getRole().equals('ADMIN') ) }">
+              <ul class="dropdown-menu dropdown-menu-left v2" th:if="${session.user==null ||  (#request.requestURI.equals('/') && session.user.getRole().equals('ADMIN') ) }">
                 <li><a class="dropdown-item" th:href="@{/tourisme}"> Tourisme</a></li>
                 <li><a class="dropdown-item" th:href="@{/etudiant}"> Etudes</a></li>
                 <li><a class="dropdown-item" th:href="@{/emploi}"> Emploi</a></li>
@@ -97,7 +97,7 @@
                   <li><a class="dropdown-item" th:href="@{/emploi/entreprise}">Entreprise</a></li>
                   <li><a class="dropdown-item" th:href="@{/emploi/organisation}">Organisation</a></li>
                 </ul>
-                <ul class="dropdown-menu dropdown-menu-left v2" th:if="${session.user==null}">
+                <ul class="dropdown-menu dropdown-menu-left v2" th:if="${session.user==null || (#request.requestURI.equals('/') && session.user.getRole().equals('ADMIN') )}">
                   <li><a class="dropdown-item" th:href="@{/login}"> Tourisme</a></li>
                   <li><a class="dropdown-item" th:href="@{/login}"> Etudes</a></li>
                   <li><a class="dropdown-item" th:href="@{/login}"> Emploi</a></li>
