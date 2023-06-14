@@ -43,7 +43,28 @@ public class AdminController {
 
     @GetMapping()
     public String admin(){
-        return "admin/admin";
+        return "redirect:/admin/tourismeCat";
+    }
+
+    @GetMapping("/tourismeCat")
+    public String tourismeCat(Model model) throws Exception {
+        model.addAttribute("tourismeCat", new TourismeCat());
+        model.addAttribute("tourismeCats",tourismeCatService.findAll());
+        return "admin/tourisme/tourismeCat";
+    }
+    @GetMapping("/tourismeEle")
+    public String tourismeEle(Model model) throws Exception {
+        model.addAttribute("tourisme", new Tourisme());
+        model.addAttribute("tourismeCats",tourismeCatService.findAll());
+        return "admin/tourisme/tourismeEle";
+    }
+    @GetMapping("/apropos")
+    public String apropos(Model model){
+        return "apropos";
+    }
+    @GetMapping("/contact")
+    public String contact(Model model){
+        return "contact";
     }
     @GetMapping("/tourisme")
     public String tourisme(Model model) throws Exception {
@@ -63,7 +84,12 @@ public class AdminController {
                 e.printStackTrace();
             }
         }
-        return "redirect:/admin/tourisme";
+        return "redirect:/admin/tourismeCat";
+    }
+    @GetMapping("/tourismeList")
+    public String tourismeList(Model model) throws Exception {
+        model.addAttribute("tourismes",tourismeService.findAll());
+        return "admin/tourisme/tourismeList";
     }
     @PostMapping("/tourisme")
     public String addTourisme(@ModelAttribute("tourisme") Tourisme tourisme,
@@ -81,7 +107,7 @@ public class AdminController {
                 e.printStackTrace();
             }
         }
-        return "redirect:/admin/tourisme";
+        return "redirect:/admin/tourismeEle";
     }
     @GetMapping("/etudiant")
     public String etudiant(Model model) throws Exception {

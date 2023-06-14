@@ -72,7 +72,7 @@ public class TourismeController {
             e.printStackTrace();
         }
         if(tourismes!=null)
-            model.addAttribute("pages",tourismes.getTotalPages());
+            model.addAttribute("pages",new int[tourismes.getTotalPages()]);
         model.addAttribute("tourismeCats",tourismeCats);
         model.addAttribute("tourismes",tourismes);
         model.addAttribute("currentPage",page);

@@ -1,12 +1,101 @@
 <!DOCTYPE html>
 <html  lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Emploi page</title>
-</head>
+<div th:replace="~{/layouts/head :: head}"></div>
 <body>
-<h1>Salut Postulant</h1><br>
-<form th:action="@{/logout}"  method="post">
-    <button type="submit" >Sign Out</button>
-</form>
+<div th:replace="~{/layouts/loading :: div}"></div>
+<div th:replace="~{/layouts/header :: header}"></div>
+<div class="slider-container">
+    <div class="container-slider-image-full nopadd">
+        <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+            <ol class="carousel-indicators d-none">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active" ></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1" class="" ></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2" class="" ></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active"  >
+                    <img class="d-block w-100" src="images/placeholder/entreprise.jpg" alt="First slide">
+                    <div class="carousel-caption d-md-block text-center text-capitalize">
+                        <h1 class="text-white animated fadeInUp nopadd" style="animation-delay:1s"> Entreprise</h1>
+                        <div class="animated fadeInLeft d-none d-sm-block" style="animation-delay:2.6s">
+                            <a  th:href="@{/emploi/entreprise}" class="btn btn-primary text-uppercase">Visiter</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item"  >
+                    <img class="d-block w-100" src="images/placeholder/organisation.png" alt="First slide">
+                    <div class="carousel-caption d-md-block text-center text-capitalize">
+                        <h1 class="text-white animated fadeInUp nopadd" style="animation-delay:1s"> Organisation</h1>
+                        <div class="animated fadeInLeft d-none d-sm-block" style="animation-delay:2.6s">
+                            <a  th:href="@{/emploi/organisation}" class="btn btn-primary text-uppercase">Visiter</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item"  >
+                    <img class="d-block w-100" src="images/placeholder/offres.jpg" alt="First slide">
+                    <div class="carousel-caption d-md-block text-center text-capitalize">
+                        <h1 class="text-white animated fadeInUp nopadd" style="animation-delay:1s"> Offre d'emploi</h1>
+                        <div class="animated fadeInLeft d-none d-sm-block" style="animation-delay:2.6s">
+                            <a  th:href="@{/emploi/offres}" class="btn btn-primary text-uppercase">Visiter</a>
+                        </div>
+                    </div>
+                </div>
+               </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span> -->
+            <i class="fa fa-2x fa-angle-left"></i>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span> -->
+            <i class="fa fa-2x fa-angle-right"></i>
+        </a>
+    </div>
+</div>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Breadcrumb -->
+                <ul class="breadcrumbs bg-light mb-4">
+                    <li class="breadcrumbs__item">
+                        <a th:href="@{/}" class="breadcrumbs__url">
+                            <i class="fa fa-home"></i> Acceuil</a>
+                    </li>
+                    <li class="breadcrumbs__item">
+                        <a href="#" class="breadcrumbs__url breadcrumbs__item--current">Emploi</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <aside class="wrapper__list__article ">
+                    <h4 class="border_section">Chercheurs D'opportunités Professionnelles</h4>
+                    <!-- Post Article List -->
+                </aside>
+                <p style="text-align: justify;">
+                    Le module Demandeur d'Emploi de notre application est conçu pour soutenir activement les chercheurs d'opportunités professionnelles à Khouribga. Que vous soyez à la recherche d'un emploi à temps plein, d'un stage ou d'une opportunité de carrière, notre module vous accompagnera dans votre recherche d'emploi et vous aidera à atteindre vos objectifs professionnels.
+                    <br>
+                    <br>
+                    En utilisant notre application, vous pourrez explorer un large éventail d'offres d'emploi disponibles dans différents secteurs. Que vous soyez intéressé par le domaine de la technologie, du commerce, de la santé, de l'éducation ou d'autres industries, notre module vous permettra de découvrir les entreprises locales qui recrutent et les postes vacants correspondant à vos compétences et à vos intérêts. Vous pourrez consulter les descriptions de poste, les exigences, les avantages et les conditions d'emploi pour chaque opportunité, vous permettant ainsi de prendre des décisions éclairées dans votre recherche d'emploi.
+                    <br>
+                    <br>
+                    En plus de la recherche d'emploi, notre module vous fournira des conseils précieux pour réussir vos entretiens. Vous aurez accès à des ressources et à des recommandations sur la préparation aux entretiens, les techniques d'entretien, les réponses aux questions fréquemment posées et les meilleures pratiques pour impressionner les recruteurs. Grâce à ces conseils, vous pourrez vous démarquer et augmenter vos chances de décrocher le poste que vous visez.
+                    <br>
+                    <br>
+                    Nous comprenons également l'importance de la formation continue et du développement professionnel pour votre réussite. C'est pourquoi notre module Demandeur d'Emploi propose des programmes de formation et des opportunités de développement de carrière. Vous pourrez accéder à des formations professionnelles, des ateliers et des webinaires pour acquérir de nouvelles compétences, améliorer vos connaissances et vous mettre à jour avec les dernières tendances du marché du travail. Ces programmes vous aideront à renforcer votre profil professionnel et à vous démarquer auprès des employeurs potentiels.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<div th:replace="~{/layouts/footer :: section}"></div>
+<a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+<script type="text/javascript" th:src="@{/js/index.bundle.js}"></script>
 </body>
 </html>

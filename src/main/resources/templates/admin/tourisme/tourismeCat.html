@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/layouts/admin/head :: head}"></div>
+<body class="fixed-left">
+    <div class="wrapper">
+        <div th:replace="~{/layouts/admin/topbar :: div}"></div>
+
+        <div th:replace="~{/layouts/admin/side_menu :: div}"></div>
+
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container">
+                    <!-- Page-Title -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="page-header-title">
+                                <h4 class="pull-left page-title">Catégories de tourisme</h4>
+                                <ol class="breadcrumb pull-right">
+                                    <li><a href="#">Tourisme</a></li>
+                                    <li class="active">Catégories</li>
+                                </ol>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading"><h3 class="panel-title">Ajouter catégorie</h3></div>
+                                <div class="panel-body">
+                                    <form th:action="@{/admin/tourismeCat}" th:object="${tourismeCat}" method="post" enctype="multipart/form-data" class="form-inline" role="form">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="categorie">Nom de catégorie</label>
+                                            <input type="text" th:field="*{titleTC}" required class="form-control" id="categorie" placeholder="Catégorie">
+                                        </div>
+
+                                        <div class="form-group m-l-10">
+                                            <label class="sr-only" for="imageupload">Image</label>
+                                            <input name="imageFile" id="imageupload" type="file">
+                                        </div>
+                                        <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">Ajouter</button>
+                                    </form>
+                                </div> <!-- panel-body -->
+                            </div> <!-- panel -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Liste de catégorie</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nom de catégorie</th>
+                                            <th>image</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="tourismeCat, index :${tourismeCats}" >
+                                            <td th:text="${tourismeCat.idTC}"></td>
+                                            <td th:text="${tourismeCat.titleTC}"></td>
+                                            <td><img th:if="${!tourismeCat.imgTC.isEmpty()}" th:src="@{/images/{imageName}(imageName=${tourismeCat.imgTC})}" style="width: 150px; height: auto;" alt=""></td>
+                                            <td>
+                                                <button class="btn btn-warning">Modifier <i class="fa fa-spin fa-refresh"></i></button>
+                                                <button class="btn btn-danger">Supprimer  <i class="fa fa-trash-o"></i></button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> <!-- End Row -->
+
+
+                </div> <!-- container -->
+
+            </div> <!-- content -->
+
+            <footer class="footer">
+                2023 © Khouribga SmartCity.
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- jQuery  -->
+    <script th:src="@{/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+    <script th:src="@{/assets/js/modernizr.min.js}"></script>
+    <script th:src="@{/assets/js/detect.js}"></script>
+    <script th:src="@{/assets/js/fastclick.js}"></script>
+    <script th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+    <script th:src="@{/assets/js/jquery.blockUI.js}"></script>
+    <script th:src="@{/assets/js/waves.js}"></script>
+    <script th:src="@{/assets/js/wow.min.js}"></script>
+    <script th:src="@{/assets/js/jquery.nicescroll.js}"></script>
+    <script th:src="@{/assets/js/jquery.scrollTo.min.js}"></script>
+    <script th:src="@{/assets/plugins/summernote/summernote.min.js}"></script>
+    <script th:src="@{/assets/js/app.js}"></script>
+    <script th:src="@{/assets/plugins/dropzone/dropzineNpm.js}"></script>
+    <script th:src="@{/assets/plugins/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/assets/plugins/datatables/dataTables.bootstrap.js}"></script>
+    <script th:src="@{/assets/plugins/datatables/dataTables.responsive.min.js}"></script>
+    <script th:src="@{/assets/plugins/datatables/responsive.bootstrap.min.js}"></script>
+    <script th:src="@{/assets/plugins/jquery-sparkline/jquery.sparkline.min.js}"></script>
+    <script>
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("#myDropzone", {
+            url: "/admin/tourisme",
+            acceptedFiles: "image/*",
+            maxFiles: 5,
+            maxFilesize: 5,
+            addRemoveLinks: true,
+            autoProcessQueue: false ,// Disable automatic file processing
+            dictDefaultMessage: "Importer des images"
+        });
+        document.getElementById("uploadButton").addEventListener("click", function () {
+            myDropzone.processQueue(); // Process the queued files when the button is clicked
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#descriptionEditor').summernote({
+                placeholder: 'Enter description...', // Placeholder text
+                height: 200, // Editor height
+                // Add other options as needed
+            });
+        });
+    </script>
+
+</body>
+</html>

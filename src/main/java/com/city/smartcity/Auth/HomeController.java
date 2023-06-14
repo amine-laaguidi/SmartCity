@@ -77,6 +77,10 @@ public class HomeController {
             return "redirect:/etudiant/apropos";
         else if(user.getRole().equals("AFFAIRE"))
             return "redirect:/affaire/apropos";
+        else if(user.getRole().equals("EMPLOI"))
+            return "redirect:/emploi/apropos";
+        else if(user.getRole().equals("ADMIN"))
+            return "redirect:/admin/apropos";
         return "index";
     }
     @GetMapping("contact")
@@ -90,6 +94,10 @@ public class HomeController {
             return "redirect:/etudiant/contact";
         else if(user.getRole().equals("AFFAIRE"))
             return "redirect:/affaire/contact";
+        else if(user.getRole().equals("EMPLOI"))
+            return "redirect:/emploi/contact";
+        else if(user.getRole().equals("ADMIN"))
+            return "redirect:/admin/contact";
         return "index";
     }
 //    public String role(){

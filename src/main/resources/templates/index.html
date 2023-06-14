@@ -94,20 +94,80 @@
         </a>
     </div>
 </div>
-    <div th:if="${session.user != null}">
-        <h1 th:text="${'Bienvenue sur la page daccueil '+session.user.username + '/' + session.user.role}"></h1>
-        <h2 th:if="${session.user.role == 'ADMIN'}" ><a th:href="@{/admin}">admin</a></h2>
-        <h2 th:if="${session.user.role == 'TOURISTE'}" ><a th:href="@{/tourisme}">Espace tourisme</a></h2>
-        <h2 th:if="${session.user.role == 'ETUDIANT'}" ><a th:href="@{/etudiant}">Espace etudiant</a></h2>
-        <h2 th:if="${session.user.role == 'AAFAIRE'}" ><a th:href="@{/affaire}">Espace affaire</a></h2>
-        <form th:action="@{/logout}"  method="post">
-            <button type="submit" >Sign Out</button>
-        </form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+        <div class="wrap__about-us">
+            <h2>Bienvenue dans Khouribga Smart City</h2>
+            <br>
+<!--            <h5>Votre guide complet vers une expérience exceptionnelle !</h5>-->
+            <aside class="wrapper__list__article ">
+                <h4 class="border_section">Votre guide complet vers une expérience exceptionnelle !</h4>
+            </aside>
+            <figure class="float-left mr-3">
+                <img src="images/placeholder/logo2.png" style="width: 100px;height: auto;margin: 10px;" alt="" class="img-fluid">
+            </figure>
+            <p style="text-align: justify;">
+                Bienvenue dans Khouribga Smart City, la plateforme numérique ultime pour vous plonger dans l'univers vibrant de notre ville en constante évolution.
+                Que vous soyez un étudiant ambitieux, un entrepreneur en herbe,
+                un voyageur avide d'aventure ou un chercheur d'opportunités professionnelles,
+                notre application web est spécialement conçue pour répondre à tous vos besoins et faciliter votre séjour à Khouribga.
+            </p>
+            <br>
+            <aside class="wrapper__list__article ">
+                <h4 class="border_section">Pour les touristes</h4>
+            </aside>
+            <figure class="float-right mr-3">
+                <img src="images/placeholder/khouribga.jpg" style="width: 400px;height: auto;margin: 10px;" alt="" class="img-fluid">
+            </figure>
+            <p style="text-align: justify;">
+                Partez à la découverte de Khouribga, une ville qui connaît une croissance fulgurante. Située au Maroc, Khouribga est une destination en plein essor, attirant chaque jour un nombre croissant de visiteurs venus du monde entier. Avec son mélange unique de tradition et de modernité, la ville offre une expérience captivante à ceux qui la visitent.
+                <br>
+                Khouribga est connue pour sa diversité d'attractions touristiques qui raviront les voyageurs de tous horizons. Que vous soyez amateur de culture, amoureux de la nature ou avide d'aventures, vous trouverez votre bonheur dans cette ville dynamique.
+                <br>
+                Pour les amoureux de l'histoire et de la culture, Khouribga regorge de sites historiques et de monuments emblématiques. Les ruines fascinantes des anciennes cités fortifiées témoignent du riche passé de la région. Les palais magnifiques sont autant de joyaux architecturaux à découvrir. Plongez dans l'histoire captivante de Khouribga à travers ses musées et ses expositions qui mettent en lumière l'héritage culturel de la ville.
+            </p>
+            <br>
+            <aside class="wrapper__list__article ">
+                <h4 class="border_section">Pour les Étudiants</h4>
+            </aside>
+            <figure class="float-left mr-3">
+                <img src="images/placeholder/etudiant-khouribga.jpg" style="width: 400px;height: auto;margin: 10px;" alt="" class="img-fluid">
+            </figure>
+            <p style="text-align: justify;">
+                Le module Étudiant de notre application est spécialement conçu pour répondre aux besoins éducatifs des étudiants en quête de connaissances et d'opportunités d'apprentissage. Que vous soyez à la recherche d'une université renommée, de centres de recherche de premier plan ou de programmes éducatifs novateurs, Khouribga Smart City est là pour vous guider et vous fournir toutes les informations nécessaires pour poursuivre votre éducation dans les meilleures conditions.
+                <br>
+                En utilisant notre application, vous aurez accès à une multitude de ressources et d'outils qui faciliteront votre parcours académique. Vous pourrez explorer une variété d'options universitaires offertes dans la ville, en découvrant les différents établissements d'enseignement supérieur et leurs programmes d'études. Des universités renommées aux instituts spécialisés, vous trouverez une gamme diversifiée de choix pour répondre à vos intérêts et à vos objectifs éducatifs.
+            </p>
+            <br>
+            <aside class="wrapper__list__article ">
+                <h4 class="border_section">chercheurs d'opportunités professionnelles</h4>
+            </aside>
+            <figure class="float-right mr-3">
+                <img src="images/placeholder/offres.jpg" style="width: 400px;height: auto;margin: 10px;" alt="" class="img-fluid">
+            </figure>
+            <p style="text-align: justify;">
+                Le module Demandeur d'Emploi de notre application est conçu pour soutenir activement les chercheurs d'opportunités professionnelles à Khouribga. Que vous soyez à la recherche d'un emploi à temps plein, d'un stage ou d'une opportunité de carrière, notre module vous accompagnera dans votre recherche d'emploi et vous aidera à atteindre vos objectifs professionnels.
+                <br>
+                En utilisant notre application, vous pourrez explorer un large éventail d'offres d'emploi disponibles dans différents secteurs. Que vous soyez intéressé par le domaine de la technologie, du commerce, de la santé, de l'éducation ou d'autres industries, notre module vous permettra de découvrir les entreprises locales qui recrutent et les postes vacants correspondant à vos compétences et à vos intérêts. Vous pourrez consulter les descriptions de poste, les exigences, les avantages et les conditions d'emploi pour chaque opportunité, vous permettant ainsi de prendre des décisions éclairées dans votre recherche d'emploi.
+            </p>
+            <br>
+            <aside class="wrapper__list__article ">
+                <h4 class="border_section">Pour les Entrepreneurs</h4>
+            </aside>
+            <figure class="float-left mr-3">
+                <img src="images/placeholder/entreprise.jpg" style="width: 400px;height: auto;margin: 10px;" alt="" class="img-fluid">
+            </figure>
+            <p style="text-align: justify;">
+                Le module Affaires de notre application est spécialement conçu pour répondre aux besoins des entrepreneurs ambitieux et des hommes d'affaires chevronnés à Khouribga. Si vous êtes à la recherche d'informations clés pour prospérer dans le milieu des affaires, ce module est votre allié.
+                <br>
+                En utilisant notre module Affaires, vous pourrez explorer les opportunités d'investissement disponibles à Khouribga. Nous vous fournirons des informations détaillées sur les secteurs en croissance, les industries émergentes et les projets d'expansion en cours dans la ville. Vous aurez un aperçu des domaines qui offrent le plus grand potentiel de rentabilité et de croissance, vous permettant ainsi de prendre des décisions éclairées en matière d'investissement.
+            </p>
+            <br>
+        </div>
+        </div>
     </div>
-    <div th:if="${session.user == null}">
-        <h1>Bienvenue sur la page d'accueil  </h1>
-        <a th:href="@{/login}" >login</a>
-    </div>
+</div>
 <div th:replace="~{/layouts/footer :: section}"></div>
 <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
 <script type="text/javascript" th:src="@{/js/index.bundle.js}"></script>
