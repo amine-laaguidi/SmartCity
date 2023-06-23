@@ -12,6 +12,8 @@ public interface TourismeService {
     Tourisme findTourismeByIdT(Long idT) throws Exception;
     Page<Tourisme> findAll(Pageable pageable) throws Exception;
     List<Tourisme> findAll() throws Exception;
+    void delete(Long id) throws Exception;
+    void deleteImg(Long id,String imageUrl) throws Exception;
     Tourisme save(Tourisme tourisme) throws Exception;
 
 }

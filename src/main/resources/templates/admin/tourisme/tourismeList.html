@@ -36,7 +36,7 @@
                     <tr>
                       <th style="max-width: 150px;">Titre </th>
                       <th>Catégorie</th>
-                      <th style="max-width: 500px;">Description</th>
+                      <th style="width: 300px;">Description</th>
                       <th style="max-idth: 300px;">image</th>
                       <th>Action</th>
                     </tr>
@@ -45,18 +45,24 @@
                   <tr th:each="tourisme:${tourismes}">
                     <td style="max-width: 150px; text-overflow: ellipsis;white-space: normal" th:text="${tourisme.titreT}" ></td>
                     <td th:text="${tourisme.tourismeCat.titleTC}">Categorie</td>
-                    <td style="max-width: 500px; ">
-                      <p style="max-width: 500px; text-overflow: ellipsis;white-space: normal" th:utext="${tourisme.descriptionT}">
-                      </p>
+                    <td style=" max-width: 300px; text-overflow: ellipsis;white-space: nowrap" class="limited-length">
+                      <div th:utext="${tourisme.descriptionT}">
+                      </div>
                     </td>
-                    <td style="overflow-x: scroll;max-width: 300px;">
-                      <img th:each="image:${tourisme.imageUrls}" th:src="@{/images/{imageName}(imageName=${image})}" style="width: 150px; height: auto;" alt="">
+                    <td style="overflow-x: scroll;max-width: 300px; white-space: nowrap;">
+                      <form th:each="image:${tourisme.imageUrls}" style="position:relative;display: inline-block;" th:action="@{/admin/tourismeEle/delete-img/{id}(id =${tourisme.idT})}" method="post">
+                        <input type="hidden" th:value="${image}" name="imageUrl">
+                        <img th:src="@{/images/{imageName}(imageName=${image})}" style="width: 150px; height: auto;" alt="">
+                        <button class="delete-images-btn"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+                      </form>
 <!--                      <img src="assets/images/hotel.jpg" style="width: 150px; height: auto;" alt="">-->
 <!--                      <img src="assets/images/hotel.jpg" style="width: 150px; height: auto;" alt="">-->
                     </td>
                     <td>
                       <button class="btn btn-warning">Modifier <i class="fa fa-spin fa-refresh"></i></button>
-                      <button class="btn btn-danger">Supprimer  <i class="fa fa-trash-o"></i></button>
+                      <form th:action="@{/admin/tourismeEle/delete/{id}(id =${tourisme.idT})}" method="post">
+                        <button class="btn btn-danger">Supprimer  <i class="fa fa-trash-o"></i></button>
+                      </form>
                     </td>
                   </tr>
                   </tbody>

@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,19 +46,6 @@ public class AdminController {
     public String admin(){
         return "redirect:/admin/tourismeCat";
     }
-
-    @GetMapping("/tourismeCat")
-    public String tourismeCat(Model model) throws Exception {
-        model.addAttribute("tourismeCat", new TourismeCat());
-        model.addAttribute("tourismeCats",tourismeCatService.findAll());
-        return "admin/tourisme/tourismeCat";
-    }
-    @GetMapping("/tourismeEle")
-    public String tourismeEle(Model model) throws Exception {
-        model.addAttribute("tourisme", new Tourisme());
-        model.addAttribute("tourismeCats",tourismeCatService.findAll());
-        return "admin/tourisme/tourismeEle";
-    }
     @GetMapping("/apropos")
     public String apropos(Model model){
         return "apropos";
@@ -72,6 +60,28 @@ public class AdminController {
         model.addAttribute("tourisme", new Tourisme());
         model.addAttribute("tourismeCats",tourismeCatService.findAll());
         return "admin/tourisme";
+    }
+    @GetMapping("/tourismeCat")
+    public String tourismeCat(Model model) throws Exception {
+        model.addAttribute("tourismeCat", new TourismeCat());
+        model.addAttribute("tourismeCats",tourismeCatService.findAll());
+        return "admin/tourisme/tourismeCat";
+    }
+    @GetMapping("/tourismeEle")
+    public String tourismeEle(Model model) throws Exception {
+        model.addAttribute("tourisme", new Tourisme());
+        model.addAttribute("tourismeCats",tourismeCatService.findAll());
+        return "admin/tourisme/tourismeEle";
+    }
+    @PostMapping("/tourismeEle/delete/{id}")
+    public String deleteTourismeEle(Model model,@PathVariable Long id) throws Exception {
+        tourismeService.delete(id);
+        return "redirect:/admin/tourismeList";
+    }
+    @PostMapping("/tourismeEle/delete-img/{id}")
+    public String deleteTourismeEleImg( Model model, @PathVariable Long id, @RequestParam("imageUrl") String imageUrl) throws Exception {
+        tourismeService.deleteImg(id, imageUrl);
+        return "redirect:/admin/tourismeList";
     }
     @PostMapping("/tourismeCat")
     public String addTourismeCat(@ModelAttribute("tourismeCat") TourismeCat tourismeCat,

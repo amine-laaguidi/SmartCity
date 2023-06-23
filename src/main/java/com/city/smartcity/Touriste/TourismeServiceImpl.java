@@ -1,5 +1,6 @@
 package com.city.smartcity.Touriste;
 
+import com.city.smartcity.image.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TourismeServiceImpl implements TourismeService {
     private final TourismeRepository tourismeRepository;
+    private final ImageService imageService;
     @Override
     public Page<Tourisme> search(TourismeCat tourismeCat, String search, Pageable pageable) throws Exception {
         return tourismeRepository.findTourismesByTitreTContainingIgnoreCaseAndTourismeCat(search,tourismeCat,pageable);
@@ -32,6 +34,25 @@ public class TourismeServiceImpl implements TourismeService {
     public List<Tourisme> findAll() throws Exception {
         return tourismeRepository.findAll();
     }
+    @Override
+    public void delete(Long id) throws Exception {
+        List<String> imageUrls = tourismeRepository.findById(id).get().getImageUrls();
+        for(String imageUrl:imageUrls){
+            imageService.deleteImageFile(imageUrl);
+        }
+        tourismeRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteImg(Long id, String imageUrl) throws Exception {
+        Tourisme tourisme = tourismeRepository.findById(id).orElse(null);
+        if(tourisme != null){
+            tourisme.getImageUrls().remove(imageUrl);
+            tourismeRepository.save(tourisme);
+        }
+        imageService.deleteImageFile(imageUrl);
+    }
+
     @Override
     public Tourisme save(Tourisme tourisme) throws Exception {
         return tourismeRepository.save(tourisme);

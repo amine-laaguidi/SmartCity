@@ -14,7 +14,8 @@ public class UserConfig {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
-//   @Bean
+
+    @Bean
     CommandLineRunner init_users() {
         return args -> {
             User admin = userRepository.save(

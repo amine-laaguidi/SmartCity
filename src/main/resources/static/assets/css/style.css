@@ -86,6 +86,29 @@ a:focus {
   outline: 0;
   text-decoration: none;
 }
+
+.limited-length {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  height: 200px;
+}
+.delete-images-btn{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 0, 0, 0);
+  font-size: 44px;
+  z-index: 20;
+  border: none;
+  background: none;
+  padding: 0px;
+}
+.delete-images-btn:hover{
+  color: red;
+}
+
 .container {
   width: auto;
 }

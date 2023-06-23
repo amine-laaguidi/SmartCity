@@ -66,8 +66,9 @@
                                                     <a th:href="@{'/tourisme/' + ${titleTC} + '/' + ${tourisme.getIdT()}}" th:text="${tourisme.getTitreT()}">
                                                     </a>
                                                 </h5>
-                                                <p class="d-none d-lg-block d-xl-block mb-0" th:text="${tourisme.getDescriptionT().substring(0,400)}">
-                                                </p>
+                                                <div class="d-none d-lg-block d-xl-block mb-0">
+                                                    <div th:utext="${tourisme.descriptionT}"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

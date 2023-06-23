@@ -33,4 +33,16 @@ public class ImageServiceImpl implements ImageService{
         // Return the URL for accessing the image
         return role+"_"+filename;
     }
+    public void deleteImageFile(String imageUrl) {
+        String storagePath = System.getProperty("user.dir") + imageUploadPath + imageUrl;
+        Path imagePath = Paths.get(storagePath);
+
+        try {
+            Files.deleteIfExists(imagePath);
+            System.out.println("Image file deleted successfully: " + imageUrl);
+        } catch (IOException e) {
+            System.out.println("Failed to delete image file: " + imageUrl);
+            e.printStackTrace();
+        }
+    }
 }
